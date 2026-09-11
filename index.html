@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#213d36">
+<title>まちを、つなぐ。｜配布試遊版 v0.1.0</title>
+<style>
+:root{--paper:#f4f3ec;--surface:#fffefa;--ink:#233c35;--muted:#6d776e;--line:#dedfd5;--green:#3e6554;--green-light:#e7eee3;--gold:#a57538;--gold-light:#f4edda;--red:#a34f3d;--red-light:#f9ebe5;--blue:#477684;--shadow:0 10px 34px #233c3509;--radius:14px}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:14px;line-height:1.65}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.57}button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #c89d54;outline-offset:3px}button{border:0;background:none;color:inherit}h1,h2,h3,h4,p{margin:0}h2{font-size:19px;line-height:1.5;letter-spacing:.02em}h3{font-size:15px;line-height:1.65}small{font-size:11px}.muted{color:var(--muted)}.positive{color:var(--green)}.negative{color:var(--red)}.warning{color:var(--gold)}.num{font-family:ui-monospace,"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-variant-numeric:tabular-nums}.eyebrow{font-size:11px;letter-spacing:.15em;color:var(--muted);font-weight:700}.mono-label{font-size:10px;letter-spacing:.15em;font-weight:700}.row{display:flex;align-items:center;gap:10px}.between{display:flex;align-items:center;justify-content:space-between;gap:12px}.wrap{flex-wrap:wrap}.gap-sm{gap:6px}.spacer{flex:1}.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 17px;min-height:42px;border-radius:8px;line-height:1.45;font-weight:600;border:1px solid var(--line);background:var(--surface);white-space:nowrap;transition:background .15s,transform .15s}.btn:hover:not(:disabled){background:#efeee7;transform:translateY(-1px)}.btn.primary{background:var(--ink);border-color:var(--ink);color:white}.btn.primary:hover:not(:disabled){background:#35594c}.btn.secondary{background:var(--green-light);border-color:#d5dfd0;color:var(--green)}.btn.small{font-size:12px;min-height:34px;padding:7px 11px}.btn.danger{color:var(--red);border-color:#dbc4ba}.btn.ghost{background:transparent;border-color:transparent}.icon{display:inline-block;width:20px;height:20px;flex-shrink:0;vertical-align:middle}.icon.sm{width:17px;height:17px}.badge{font-size:11px;padding:3px 8px;background:var(--green-light);border-radius:5px;white-space:nowrap;color:var(--green);font-weight:600}.badge.gold{color:var(--gold);background:var(--gold-light)}.badge.red{background:var(--red-light);color:var(--red)}.badge.outline{background:transparent;border:1px solid var(--line);color:var(--muted)}.topbar{border-bottom:1px solid var(--line);background:var(--surface)}.topbar-inner{max-width:1480px;margin:auto;padding:20px 34px 16px;display:flex;align-items:center;gap:20px}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:43px;height:43px;background:var(--ink);color:#f5f1e4;border-radius:12px;display:flex;align-items:center;justify-content:center}.brand-mark .icon{width:28px;height:28px}.brand h1{font-size:22px;letter-spacing:.08em;line-height:1.5;font-family:"Noto Serif CJK JP","Yu Mincho",serif}.brand p{font-size:10px;letter-spacing:.10em;color:var(--muted)}.top-tools{display:flex;align-items:center;gap:6px;margin-left:auto}.saved-label{font-size:10px;color:var(--muted);margin-right:8px;max-width:110px}.header-year{border-left:1px solid var(--line);padding-left:23px;font-size:12px;color:var(--muted);line-height:1.5}.header-year strong{font-size:20px;color:var(--ink);font-weight:500}.app-nav{max-width:1480px;margin:auto;padding:0 34px;display:flex;align-items:center;gap:25px}.nav-button{position:relative;padding:13px 2px 12px;font-size:13px;font-weight:600;color:var(--muted)}.nav-button.active{color:var(--ink)}.nav-button.active:after{content:"";height:3px;background:var(--ink);bottom:-1px;position:absolute;left:0;right:0;border-radius:3px 3px 0 0}.nav-hint{margin-left:auto;color:var(--muted);font-size:10px;display:flex;align-items:center;gap:8px}.shell{max-width:1480px;margin:auto;padding:27px 34px 125px}.page-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:19px}.page-heading h2{font-size:25px;font-weight:600}.page-heading p{color:var(--muted);font-size:12px;margin-top:4px}.year-track{width:180px;font-size:10px;color:var(--muted)}.year-track .track{margin-top:7px;height:4px;border-radius:5px;background:var(--line)}.year-track .track>i{display:block;height:100%;background:var(--green);border-radius:5px}.metrics{display:grid;grid-template-columns:1.2fr 1.1fr 1.1fr 1fr 1fr;gap:12px;margin-bottom:23px}.metric{border:1px solid var(--line);background:var(--surface);border-radius:11px;padding:16px 18px}.metric .label{color:var(--muted);font-size:11px;font-weight:600;display:flex;align-items:center;gap:7px}.metric .value{font-size:29px;font-weight:500;line-height:1.3;margin:7px 0 4px;letter-spacing:-.045em;white-space:nowrap}.metric .unit{font-size:12px;letter-spacing:0;color:var(--muted);margin-left:4px;font-family:inherit;font-weight:400}.metric .foot{font-size:10px;color:var(--muted);line-height:1.5}.metric.featured{background:var(--ink);border-color:var(--ink);color:#fff}.metric.featured .label,.metric.featured .unit,.metric.featured .foot{color:#d9e2d6}.metric.featured .value{font-size:34px}.overview-grid{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(290px,.95fr);gap:18px;align-items:start}.panel{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden;box-shadow:var(--shadow)}.panel-pad{padding:21px}.panel-head{padding:18px 21px 13px;display:flex;align-items:center;justify-content:space-between;gap:12px}.panel-head p{font-size:11px;color:var(--muted);margin-top:3px}.segmented{display:inline-flex;gap:3px;border:1px solid var(--line);background:var(--paper);padding:3px;border-radius:7px}.segmented button{padding:5px 11px;border-radius:5px;font-size:11px;white-space:nowrap}.segmented button.active{background:var(--surface);box-shadow:0 1px 4px #00000012;color:var(--ink);font-weight:700}.map-wrap{position:relative;padding:0 8px;background:#eef0e7;border-top:1px solid #e3e5dc;border-bottom:1px solid #e3e5dc}.map-svg{display:block;width:100%;height:auto;max-height:450px}.map-svg .region{stroke:#a8b7a149;stroke-width:1.5;transition:fill .2s}.map-svg .district-group{cursor:pointer}.map-svg .district-group:hover .region{filter:brightness(.97);stroke:#6d846b;stroke-width:2}.map-svg .selected .region{stroke:var(--green);stroke-width:3.5;stroke-linejoin:round}.map-svg text{font-family:"Noto Sans CJK JP","Yu Gothic",sans-serif;pointer-events:none}.map-svg .map-name{font-size:15px;font-weight:600;fill:#304a3b;paint-order:stroke;stroke:#f2f2e9;stroke-width:4;stroke-linejoin:round}.map-svg .map-value{font-size:12px;fill:#63725e;paint-order:stroke;stroke:#f2f2e9;stroke-width:3;font-family:ui-monospace,Consolas,monospace}.map-svg .selected .map-name{fill:#183e29}.map-svg .pin{fill:#395f4c;stroke:#f6f5ed;stroke-width:3}.map-caption{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 21px;font-size:10px;color:var(--muted)}.map-legend{display:flex;gap:12px;align-items:center}.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:4px}.legend-dot.amber{background:#bd9856}.legend-dot.red{background:#ba725b}.district-head{display:flex;align-items:start;justify-content:space-between;padding-bottom:15px;border-bottom:1px solid var(--line);margin-bottom:15px}.district-head h2{font-size:23px;margin-top:3px}.district-select{border:1px solid var(--line);border-radius:7px;background:var(--paper);color:var(--ink);font-size:11px;padding:7px;max-width:112px}.district-numbers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 17px}.district-numbers .big{font-size:27px;line-height:1.5;font-weight:500}.district-numbers .big small{font-size:11px;color:var(--muted);margin-left:3px}.district-numbers .caption{font-size:11px;color:var(--muted)}.bars{display:grid;gap:10px}.bar-row{display:grid;grid-template-columns:76px 1fr 31px;align-items:center;gap:10px;font-size:11px}.bar-track{height:5px;background:#e9eae2;border-radius:4px;overflow:hidden}.bar-track>i{display:block;height:100%;background:var(--green);border-radius:4px}.bar-track>i.amber{background:#b49351}.bar-track>i.red{background:#b46d57}.detail-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:16px}.note{font-size:11px;color:var(--muted);line-height:1.8}.attention{border-left:3px solid var(--gold);background:var(--gold-light);padding:11px 12px;font-size:11px;margin-top:15px;border-radius:0 7px 7px 0}.attention.red{border-left-color:var(--red);background:var(--red-light);color:#7e4539}.detail-action{width:100%;margin-top:16px}.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.forecast-main{font-size:30px;letter-spacing:-.045em;line-height:1.5;margin:7px 0 11px}.forecast-main small{font-size:12px;font-weight:400;letter-spacing:0;color:var(--muted)}.kv{display:flex;justify-content:space-between;align-items:center;gap:15px;font-size:12px;padding:7px 0;border-bottom:1px solid #e9eae3}.kv:last-child{border-bottom:0}.kv.total{font-weight:700;border-top:1px solid var(--line);border-bottom:none;padding-top:11px;margin-top:5px}.kv.soft{color:var(--muted);font-size:11px}.kv .num{white-space:nowrap}.budget-foot{font-size:10px;color:var(--muted);margin-top:12px;line-height:1.8}.chart-svg{width:100%;height:auto;display:block}.chart-key{font-size:10px;display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);margin-top:7px}.chart-key i{display:inline-block;width:16px;height:2px;background:var(--green);vertical-align:middle;margin-right:5px}.chart-key i.reference{height:0;background:none;border-top:2px dashed #a4aa9b}.chart-key i.gold{background:var(--gold)}.insight-list{display:grid;gap:12px}.insight{padding:13px 14px;background:var(--paper);border-radius:8px}.insight h4{font-size:12px;margin-bottom:4px}.insight p{font-size:11px;color:var(--muted)}.section-subhead{font-size:12px;letter-spacing:.05em;margin-bottom:12px}.policy-toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}.policy-target{display:flex;align-items:center;gap:12px;padding:12px 17px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}.policy-target select{font-size:15px;border:0;background:none;color:var(--ink);font-weight:600;padding:3px 22px 3px 0}.filter-buttons{display:flex;flex-wrap:wrap;gap:5px}.filter-buttons button{border:1px solid var(--line);border-radius:20px;padding:6px 13px;font-size:11px;background:var(--surface)}.filter-buttons button.active{background:var(--ink);border-color:var(--ink);color:white}.policy-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.policy-card{padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--surface);display:flex;flex-direction:column;position:relative;transition:border-color .15s}.policy-card.chosen{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}.policy-card-top{display:flex;align-items:center;gap:10px;margin-bottom:13px}.policy-icon{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:var(--green-light);color:var(--green)}.policy-card h3{font-size:15px;margin-bottom:7px;letter-spacing:-.02em}.policy-card .description{font-size:11px;color:var(--muted);min-height:39px;margin-bottom:12px}.policy-effect{background:#eff2e9;color:var(--green);padding:8px 10px;border-radius:6px;font-size:10px;font-weight:600;min-height:34px;line-height:1.7}.policy-cost{display:flex;align-items:baseline;gap:6px;margin:12px 0 0}.policy-cost .amount{font-size:24px;letter-spacing:-.04em}.policy-cost span{font-size:10px;color:var(--muted)}.policy-meta{font-size:10px;line-height:1.8;color:var(--muted);margin:3px 0 13px}.policy-card .policy-select{width:100%;margin-top:auto;font-size:11px;white-space:normal;min-height:38px}.policy-card .unavailable{font-size:10px;background:var(--paper);border:1px dashed var(--line);border-radius:6px;text-align:center;padding:9px 7px;color:var(--muted);margin-top:auto;min-height:38px;line-height:1.65}.plan-strip{padding:14px 17px;background:var(--green-light);border:1px solid #d2dfcd;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;font-size:12px}.plan-strip .note{font-size:10px}.budget-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:start}.account-columns{display:grid;grid-template-columns:1fr 1fr;gap:23px;margin-top:20px}.account-columns h3{margin-bottom:9px;font-size:13px}.account-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:20px}.account-stat{background:var(--paper);padding:13px;border-radius:8px}.account-stat .num{font-size:23px;letter-spacing:-.05em;margin-top:5px}.account-stat p{font-size:10px;color:var(--muted)}.control-block+.control-block{margin-top:23px;padding-top:18px;border-top:1px solid var(--line)}.control-block h3{font-size:13px;margin-bottom:8px}.control-block .segmented{display:flex}.control-block .segmented button{flex:1;padding:8px 5px}.stepper{display:flex;align-items:center;gap:15px;margin:11px 0}.stepper .amount{font-size:22px;min-width:75px;text-align:center}.stepper .btn{font-size:20px;width:37px;height:37px;min-height:37px;padding:0}.progress-list{display:grid;gap:11px;margin-top:14px}.project-row{padding:14px;background:var(--paper);border-radius:8px;border:1px solid #e7e8df}.project-row h4{font-size:12px}.project-row p{font-size:10px;color:var(--muted);margin-top:4px}.project-progress{display:flex;gap:5px;margin-top:9px}.project-progress span{height:4px;background:#daddd0;border-radius:3px;flex:1}.project-progress span.done{background:var(--green)}.program-row{padding:12px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}.program-row:last-child{border-bottom:0}.program-row h4{font-size:12px}.program-row p{font-size:10px;color:var(--muted);margin-top:3px}.chart-panels{display:grid;grid-template-columns:1.25fr 1fr;gap:18px;margin-bottom:18px}.table-wrap{overflow:auto;max-height:530px}table{border-collapse:collapse;width:100%;font-size:12px;white-space:nowrap}th{text-align:right;background:var(--paper);font-size:10px;color:var(--muted);font-weight:600;padding:13px 15px;position:sticky;top:0;z-index:1;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}td{text-align:right;padding:12px 15px;border-bottom:1px solid #e8e9e1;font-family:ui-monospace,Consolas,monospace}td:first-child{font-family:inherit}tr.clickable{cursor:pointer}tr.clickable:hover{background:#edf1e8}.empty-state{padding:23px 13px;text-align:center;border:1px dashed var(--line);background:var(--paper);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.9}.actionbar{position:fixed;left:0;right:0;bottom:0;background:#fffefaf7;backdrop-filter:blur(10px);border-top:1px solid var(--line);z-index:30}.actionbar-inner{max-width:1480px;margin:auto;padding:15px 34px;display:flex;align-items:center;justify-content:space-between;gap:20px}.actionbar .status{display:flex;align-items:center;gap:26px}.actionbar .status-item{font-size:10px;color:var(--muted)}.actionbar .status-item strong{font-size:15px;color:var(--ink);font-weight:500;display:block;line-height:1.5}.actionbar .status-item strong.negative{color:var(--red)}.actionbar .btn.primary{min-width:225px;padding:13px 23px}.capacity-pips{display:flex;gap:3px;margin-top:5px}.capacity-pips i{display:block;width:10px;height:4px;background:var(--line);border-radius:2px}.capacity-pips i.on{background:var(--green)}.footer-note{margin-top:25px;font-size:10px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;line-height:1.8}.modal-overlay{position:fixed;inset:0;z-index:80;background:#162b256e;backdrop-filter:blur(5px);padding:30px 18px;display:flex;align-items:center;justify-content:center}.modal{max-height:calc(100dvh - 60px);overflow:auto;width:720px;max-width:100%;background:var(--surface);border-radius:18px;box-shadow:0 24px 100px #14291d44;position:relative}.modal-body{padding:31px 35px}.modal-close{position:absolute;right:16px;top:14px;padding:7px;line-height:1;color:var(--muted);font-size:25px;z-index:2}.modal .eyebrow{margin-bottom:9px}.modal h2{font-size:25px;line-height:1.6;padding-right:20px}.modal .intro{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.95}.modal-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:25px;padding-top:20px;border-top:1px solid var(--line)}.report-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:23px}.report-metric{border:1px solid var(--line);background:var(--paper);border-radius:9px;padding:14px}.report-metric p{font-size:10px;color:var(--muted)}.report-metric .num{font-size:25px;line-height:1.6}.report-metric small{font-size:10px;color:var(--muted)}.population-flow{display:flex;justify-content:space-between;gap:8px;padding:17px 0;margin:10px 0 7px;border-bottom:1px solid var(--line)}.population-flow div{font-size:10px;color:var(--muted)}.population-flow strong{font-size:18px;display:block;font-weight:500}.report-logs{display:grid;gap:9px;margin-top:15px}.report-log{font-size:11px;padding:10px 12px;border-radius:7px;background:var(--paper);border-left:3px solid #c4cebc;line-height:1.9}.report-log.complete{border-color:var(--green);background:var(--green-light)}.report-log.warning,.report-log.event{border-color:var(--gold);background:var(--gold-light)}.report-log.danger{border-color:var(--red);background:var(--red-light)}.welcome-hero{padding:35px;background:var(--ink);color:#f4f3e9}.welcome-hero h2{font-size:32px;font-family:"Noto Serif CJK JP","Yu Mincho",serif;letter-spacing:.05em;line-height:1.7}.welcome-hero .eyebrow{color:#b9cbbc;font-size:10px}.welcome-hero p{font-size:12px;color:#d5dfd0;max-width:470px;line-height:1.95;margin-top:15px}.welcome-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:4px 0 22px}.welcome-step .number{font-size:12px;color:var(--gold);margin-bottom:4px}.welcome-step h3{font-size:13px}.welcome-step p{font-size:11px;color:var(--muted);line-height:1.8;margin-top:6px}.check-row{display:flex;gap:10px;align-items:center;padding:12px;background:var(--paper);border-radius:8px;font-size:12px}.check-row input{accent-color:var(--green);width:17px;height:17px}.score-hero{background:var(--ink);color:white;padding:29px 35px}.score-number{font-size:70px;line-height:1.35;letter-spacing:-.07em}.score-number small{font-size:14px;color:#d3dfd0;letter-spacing:0;margin-left:8px}.score-hero p{font-size:11px;color:#d4dfcf}.score-hero h2{font-size:24px}.help-sections{display:grid;gap:22px;margin-top:22px}.help-sections h3{margin-bottom:6px}.help-sections p{font-size:12px;color:var(--muted);line-height:1.9}.help-sections ul{font-size:12px;color:var(--muted);margin:7px 0;padding-left:20px}.help-sections li{margin:4px 0}#toast{position:fixed;bottom:102px;left:50%;transform:translateX(-50%) translateY(10px);max-width:90vw;width:max-content;z-index:100;background:var(--ink);color:white;font-size:12px;line-height:1.7;padding:12px 19px;border-radius:9px;box-shadow:0 5px 30px #0002;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.borrow-input{width:85px;border:1px solid var(--line);background:var(--paper);border-radius:7px;padding:8px;text-align:right;color:var(--ink);font-family:ui-monospace,Consolas,monospace}.baseline-note{border:1px solid var(--line);border-radius:8px;padding:12px 15px;font-size:11px;color:var(--muted);margin-top:15px}.intro-callout{border:1px solid #d6ddcc;background:#ecf0e4;border-radius:10px;padding:14px 17px;font-size:12px;line-height:1.9;margin-bottom:18px}.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.score-bars{display:grid;gap:13px;margin-top:23px}.score-bars .bar-row{grid-template-columns:95px 1fr 32px}.year-report-label{font-size:10px;color:var(--muted);margin-top:13px}.program-stop{opacity:.65}.program-stop h4{text-decoration:line-through}
+@media(min-width:1500px){.map-svg{max-height:480px}.district-numbers{margin-bottom:22px}.bars{gap:13px}}
+@media(max-width:1150px){.topbar-inner,.app-nav{padding-left:23px;padding-right:23px}.shell{padding-left:23px;padding-right:23px}.header-year{display:none}.top-tools .btn{padding:7px 9px;font-size:11px}.saved-label{display:none}.overview-grid{grid-template-columns:minmax(0,1.65fr) minmax(265px,.95fr)}.metrics{gap:9px}.metric{padding:14px}.metric .value{font-size:26px}.policy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mini-grid{grid-template-columns:1fr}.policy-toolbar{align-items:flex-start;flex-direction:column}.panel-pad{padding:18px}.account-columns{gap:15px}.account-columns .kv{font-size:11px}.account-summary{grid-template-columns:1fr}.account-stat{display:flex;align-items:center;justify-content:space-between}.account-stat .num{margin-top:0}.actionbar-inner{padding-left:23px;padding-right:23px}.actionbar .status{gap:20px}.nav-hint{display:none}}
+@media(max-width:850px){.overview-grid{grid-template-columns:1fr}.overview-grid>.panel{order:0}.overview-main{order:1}.overview-grid .district-panel{order:2}.overview-main{display:contents}.map-panel{order:1}.mini-grid{order:3;width:100%;margin-top:0;grid-template-columns:1fr 1fr}.district-panel .bars{grid-template-columns:1fr 1fr;column-gap:22px}.district-numbers{grid-template-columns:1fr 1fr 1fr}.detail-tags{margin-top:12px}.metrics{grid-template-columns:repeat(3,1fr)}.metric.featured{grid-row:span 2;display:flex;justify-content:center;flex-direction:column}.metric.featured .value{font-size:38px}.metric{padding:12px 14px}.metric .value{font-size:25px;margin:3px 0}.metric .foot{font-size:9px}.topbar-inner{padding-top:15px;padding-bottom:12px}.brand h1{font-size:20px}.brand p{font-size:9px}.brand-mark{width:38px;height:38px}.top-tools .btn .text-label{display:none}.budget-grid{grid-template-columns:1fr}.chart-panels{grid-template-columns:1fr}.account-summary{grid-template-columns:repeat(3,1fr)}.account-stat{display:block}.policy-toolbar{flex-direction:row;align-items:center;flex-wrap:wrap}.actionbar .status-item:first-child{display:none}.actionbar .btn.primary{min-width:210px}.actionbar-inner{gap:10px}.footer-note{display:block}.year-track{width:130px}}
+@media(max-width:580px){body{font-size:13px}.topbar-inner{padding:13px 15px;gap:8px}.brand{gap:8px}.brand-mark{width:34px;height:34px;border-radius:9px}.brand-mark .icon{width:23px;height:23px}.brand h1{font-size:17px}.brand p{font-size:8px;letter-spacing:.03em}.top-tools{gap:0}.top-tools .btn{padding:6px;min-height:32px}.top-tools .btn .icon{width:17px;height:17px}.app-nav{padding:0 15px;gap:21px;overflow-x:auto}.nav-button{font-size:11px;padding:12px 0;white-space:nowrap}.shell{padding:20px 15px 115px}.page-heading{margin-bottom:14px;align-items:start}.page-heading h2{font-size:21px}.page-heading p{font-size:10px;max-width:225px}.year-track{width:80px;margin-top:5px;font-size:9px}.metrics{gap:7px;margin-bottom:16px}.metric{padding:10px}.metric .label{font-size:9px;gap:4px}.metric .label .icon{display:none}.metric .value{font-size:20px}.metric .unit{font-size:9px;margin-left:2px}.metric.featured .value{font-size:29px}.metric.featured .unit{display:block;font-size:10px;margin-left:0}.metric.featured .foot{font-size:9px}.metric .foot{font-size:8px}.overview-grid{gap:14px}.panel-head{padding:14px 15px 11px}.panel-head h3{font-size:13px}.panel-head p{font-size:9px}.segmented button{padding:5px 8px;font-size:10px}.map-wrap{padding:2px 0}.map-caption{font-size:9px;padding:9px 13px}.map-caption>span:last-child{display:none}.panel-pad{padding:16px}.district-panel .bars{column-gap:14px;gap:10px}.bar-row{grid-template-columns:60px 1fr 23px;gap:6px;font-size:10px}.district-head h2{font-size:21px}.district-numbers .big{font-size:23px}.district-numbers .caption{font-size:10px}.mini-grid{grid-template-columns:1fr;gap:14px}.policy-grid{grid-template-columns:1fr;gap:12px}.policy-card{padding:17px}.policy-card .description{min-height:0}.policy-card h3{font-size:15px}.policy-cost .amount{font-size:24px}.policy-effect{font-size:11px}.policy-meta{font-size:11px}.policy-toolbar{gap:12px;margin-bottom:14px}.policy-target{width:100%;justify-content:space-between;padding:10px 13px}.filter-buttons{gap:5px}.filter-buttons button{font-size:10px;padding:6px 11px}.plan-strip{align-items:flex-start;padding:12px;font-size:11px}.plan-strip .btn{padding:6px 9px;font-size:10px}.account-columns{grid-template-columns:1fr;gap:20px}.account-summary{gap:7px}.account-stat{padding:10px}.account-stat .num{font-size:20px}.account-stat p{font-size:9px}.actionbar-inner{padding:11px 15px;gap:8px}.actionbar .status{gap:10px}.actionbar .status-item{font-size:9px}.actionbar .status-item strong{font-size:12px}.actionbar .status-item:nth-child(2){display:none}.actionbar .btn.primary{min-width:0;flex:1;max-width:220px;font-size:12px;padding:12px 15px}.capacity-pips{display:none}.modal-overlay{padding:15px 10px}.modal{max-height:calc(100dvh - 30px);border-radius:13px}.modal-body{padding:25px 20px}.modal h2{font-size:21px}.welcome-hero{padding:28px 23px}.welcome-hero h2{font-size:28px}.welcome-steps{gap:13px}.welcome-step h3{font-size:11px}.welcome-step p{font-size:10px}.report-metrics{gap:7px;margin-top:18px}.report-metric{padding:10px}.report-metric .num{font-size:22px}.report-metric p{font-size:9px}.population-flow{gap:5px}.population-flow strong{font-size:17px}.score-hero{padding:25px}.score-hero h2{font-size:20px}.score-number{font-size:62px}.modal-footer{align-items:stretch}.modal-footer .btn{font-size:11px;padding:10px}.modal-footer .note{font-size:9px;max-width:140px}.chart-key{font-size:9px}.footer-note{font-size:9px}.stepper .amount{font-size:21px}.intro-callout{font-size:11px}.nav-button .badge{font-size:9px;padding:1px 4px}.row.wrap .btn{font-size:11px}#toast{bottom:87px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+@media print{.top-tools,.app-nav,.actionbar,.modal-overlay,.btn,.footer-note{display:none!important}.shell{padding:15px}.panel,.metric{break-inside:avoid;box-shadow:none}body{background:white}}
+
+</style>
+
+<style>
+.distribution-ribbon{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border:1px solid #ffffff2e;border-radius:999px;font-size:10px;letter-spacing:.08em;color:#dbe5d7;margin-bottom:13px}.tester-callout{margin:16px 0 18px;padding:14px 15px;border:1px solid var(--line);border-radius:9px;background:#faf9f3}.tester-callout h3{font-size:12px;margin-bottom:7px}.tester-callout ul{margin:0;padding-left:18px;color:var(--muted);font-size:11px;line-height:1.9}.feedback-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.feedback-card{padding:13px 14px;background:var(--paper);border-radius:8px;border:1px solid #e7e7de}.feedback-card strong{display:block;font-size:12px;margin-bottom:3px}.feedback-card span{font-size:10px;color:var(--muted);line-height:1.7}.build-note{font-size:9px;color:var(--muted);white-space:nowrap}.boot-fallback{max-width:700px;margin:80px auto;padding:30px;background:#fffefa;border:1px solid #dedfd5;border-radius:14px;color:#233c35;font-family:"Yu Gothic",Meiryo,sans-serif}.boot-fallback h1{font-size:24px;margin:0 0 12px}.boot-fallback p{line-height:1.8;color:#6d776e}@media(max-width:850px){.build-note{display:none}}@media(max-width:580px){.feedback-grid{grid-template-columns:1fr}.distribution-ribbon{font-size:9px}}
+</style>
+</head>
+<body>
+<div id="app"><div class="boot-fallback"><h1>まちを、つなぐ。</h1><p>ゲームを読み込んでいます。画面がこのまま変わらない場合は、Chrome または Edge でこのHTMLファイルを開き直してください。</p></div></div>
+<div id="modal-root"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<input id="import-file" type="file" accept=".json,application/json" hidden>
+<script>
+/* まちを、つなぐ。 v0.1.0 — fictional municipal simulation, no external dependencies. */
+(function (root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.MachiEngine = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  const VERSION = '0.1.0';
+  const HORIZON = 30;
+  const BASE_POP = 10000;
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const sum = a => a.reduce((s, v) => s + v, 0);
+  const clone = obj => JSON.parse(JSON.stringify(obj));
+  const pop = d => sum(d.ages);
+  const townPop = s => sum(s.districts.map(pop));
+  const weighted = (s, fn) => sum(s.districts.map(d => pop(d) * fn(d))) / Math.max(1, townPop(s));
+  const r2 = n => Math.round(n * 100) / 100;
+  function apportion(total, weights) {
+    total = Math.max(0, Math.round(total));
+    const sw = sum(weights);
+    if (!sw) return weights.map(() => 0);
+    const exact = weights.map(w => total * w / sw);
+    const out = exact.map(Math.floor);
+    const order = exact.map((x, i) => ({i, f: x - out[i]})).sort((a, b) => b.f - a.f || a.i - b.i);
+    for (let n = total - sum(out), i = 0; i < n; i++) out[order[i % order.length].i]++;
+    return out;
+  }
+  const SPECS = [
+    {id:'center',name:'中央駅前',kind:'中心市街地',n:2400,ages:[12,21,31,24,12],remote:0,road:78,water:72,facility:72,rc:.50,wc:.60,fc:.95,jobs:55,childcare:65,mobility:84,access:84,homes:20,vacant:80,x:454,y:261},
+    {id:'east',name:'川東',kind:'生活拠点',n:1700,ages:[13,21,30,24,12],remote:.15,road:74,water:66,facility:75,rc:.45,wc:.48,fc:.90,jobs:50,childcare:68,mobility:77,access:80,homes:16,vacant:65,x:664,y:254},
+    {id:'south',name:'南台',kind:'子育て住宅地',n:1600,ages:[17,26,30,18,9],remote:.1,road:83,water:79,facility:85,rc:.42,wc:.42,fc:1.10,jobs:54,childcare:78,mobility:73,access:85,homes:8,vacant:35,x:480,y:403},
+    {id:'fields',name:'田園',kind:'農業集落',n:1300,ages:[10,16,31,28,15],remote:.35,road:68,water:60,facility:60,rc:.50,wc:.42,fc:.85,jobs:43,childcare:57,mobility:64,access:73,homes:14,vacant:90,x:271,y:378},
+    {id:'forest',name:'森谷',kind:'林業・里山',n:1000,ages:[8,13,29,31,19],remote:.55,road:63,water:54,facility:58,rc:.52,wc:.39,fc:.85,jobs:38,childcare:53,mobility:58,access:66,homes:10,vacant:75,x:257,y:225},
+    {id:'north',name:'北山',kind:'山間集落',n:800,ages:[6,11,29,32,22],remote:.75,road:59,water:49,facility:55,rc:.57,wc:.40,fc:.80,jobs:33,childcare:47,mobility:48,access:60,homes:7,vacant:80,x:404,y:102},
+    {id:'upstream',name:'上流',kind:'水源の集落',n:700,ages:[7,13,28,31,21],remote:.7,road:61,water:56,facility:52,rc:.49,wc:.38,fc:.80,jobs:34,childcare:50,mobility:52,access:62,homes:8,vacant:60,x:626,y:111},
+    {id:'remote',name:'奥里',kind:'小さな山里',n:500,ages:[4,9,26,35,26],remote:1,road:51,water:45,facility:46,rc:.55,wc:.41,fc:.75,jobs:29,childcare:42,mobility:39,access:53,homes:5,vacant:70,x:162,y:96}
+  ];
+  const P = [
+    {id:'road_care',name:'道路・橋の予防修繕',cat:'インフラ',asset:'road',years:1,staff:1,grant:.20,cooldown:3,icon:'road',desc:'傷みの軽いうちに補修。寿命を延ばし、大規模更新を先送りする。',effect:'道路健全度 +17',basis:'rc',mult:1.55},
+    {id:'road_rebuild',name:'道路・橋の重点更新',cat:'インフラ',asset:'road',years:2,staff:2,grant:.35,icon:'bridge',desc:'主要路と橋を更新。費用は大きいが、低下した安全性を回復する。',effect:'道路健全度 98へ',basis:'rc',mult:7.5},
+    {id:'road_merge',name:'代替路確保・橋の集約',cat:'インフラ',asset:'road',years:3,staff:2,grant:.30,icon:'route',desc:'代替ルートを整え、管理対象を減らす。生活路は残す。',effect:'道路維持費 −30% / 道路 +12 / 交通 −3',basis:'rc',mult:4.5},
+    {id:'water_rebuild',name:'水道施設・管路の更新',cat:'インフラ',asset:'water',years:3,staff:2,grant:.35,icon:'water',desc:'既存の給水系統を更新。給水を維持しながら施工する。',effect:'水道健全度 98へ',basis:'wc',mult:10},
+    {id:'water_merge',name:'給水設備の集約・小規模化',cat:'インフラ',asset:'water',years:3,staff:2,grant:.40,icon:'water',desc:'代替給水を確保してから切替。小規模地区に合う設備へ。',effect:'水道維持費 −32% / 水道健全度 92へ',basis:'wc',mult:9.5},
+    {id:'facility_care',name:'学校・公共施設の長寿命化',cat:'インフラ',asset:'facility',years:2,staff:2,grant:.25,icon:'building',desc:'校舎や公共施設を改修。今の配置を維持して使い続ける。',effect:'施設健全度 94へ / 子育て +3',basis:'fc',mult:4.2},
+    {id:'facility_merge',name:'学校・公共施設の複合化',cat:'インフラ',asset:'facility',years:3,staff:2,grant:.40,icon:'building',desc:'通学・通所の手段を確保し、受入施設を改修して機能をまとめる。',effect:'施設維持費 −30% / 施設 90へ / 生活拠点 −3',basis:'fc',mult:3.7},
+    {id:'mobility',name:'予約型交通・通学支援',cat:'暮らし',asset:'mobility',years:1,staff:1,grant:.30,cost:.30,annual:.20,icon:'bus',desc:'少人数の移動・通学を支える。開始後は毎年の運行費が必要。',effect:'交通 +18 / 生活拠点 +5（運行中）'},
+    {id:'housing',name:'空き家の改修・流通',cat:'産業・定住',asset:'housing',years:1,staff:1,grant:.35,cost:.65,cooldown:2,icon:'home',desc:'空き家を住める状態にし、貸し手と借り手をつなぐ。',effect:'入居可能な空き家 最大+40戸'},
+    {id:'succession',name:'地元企業の事業承継',cat:'産業・定住',asset:'jobs',years:2,staff:1,grant:.30,cost:.80,cooldown:4,icon:'work',desc:'後継者探しと設備引継ぎを支援。地元で働く選択肢を守る。',effect:'仕事の充実度 +14'},
+    {id:'startup',name:'小さな創業・雇用づくり',cat:'産業・定住',asset:'jobs',years:2,staff:1,grant:.25,cost:1.05,cooldown:4,icon:'work',desc:'小さな事業の立ち上げと雇用を支援する。成果は完成後に反映。',effect:'仕事の充実度 +18'},
+    {id:'childcare',name:'保育・子育て支援の拡充',cat:'暮らし',asset:'childcare',years:1,staff:1,grant:.25,cost:.36,annual:.22,icon:'people',desc:'預かりと子育ての支援体制を厚くする。出生と定住に緩やかに作用。',effect:'子育て +18（運用中）'},
+    {id:'migration',name:'移住・定住の伴走支援',cat:'産業・定住',asset:'migration',years:1,staff:1,grant:.25,cost:.18,annual:.12,icon:'people',desc:'仕事・住宅・暮らしをまとめて案内。住まいや仕事がなければ効果は小さい。',effect:'転入候補 ×1.35（住宅供給が上限）'},
+    {id:'relocation',name:'中心地区への住み替え支援',cat:'暮らし',asset:'relocation',years:2,staff:1,grant:.40,cost:.60,cooldown:4,icon:'route',desc:'合意した最大12世帯が中央駅前へ。町全体の人口は直接増減しない。',effect:'最大28人が町内転居 / 中央駅前の住宅が必要'},
+    {id:'shared',name:'隣町との共同維持管理',cat:'行政',asset:'shared',years:2,staff:2,grant:.40,cost:1.50,annual:.08,town:true,icon:'link',desc:'技術職員と発注業務を共同化。運営費を負担しつつ実施体制を広げる。',effect:'実施余力 +2 / 基礎経費 −0.22億円／年（運用中）'}
+  ];
+  const policy = id => P.find(p => p.id === id);
+  const district = (s, id) => s.districts.find(d => d.id === id);
+  const active = (s, id, target) => s.programs.some(p => p.policy === id && p.target === target);
+  function effective(s, d, key) {
+    let n = d[key];
+    if (key === 'mobility' && active(s,'mobility',d.id)) n += 18;
+    if (key === 'access' && active(s,'mobility',d.id)) n += 5;
+    if (key === 'childcare' && active(s,'childcare',d.id)) n += 18;
+    return clamp(n, 0, 100);
+  }
+  function life(s,d) {
+    return clamp(.32*effective(s,d,'mobility') + .25*effective(s,d,'access') + .16*effective(s,d,'childcare') + .15*d.road + .12*d.water, 0, 100);
+  }
+  function safety(s) { return weighted(s,d=>(d.road+d.water+d.facility)/3); }
+  function capacity(s, plan) {
+    return 6 + (active(s,'shared','town') && !(plan && plan.stops.includes('shared:town')) ? 2 : 0);
+  }
+  function infrastructureNeed(s) {
+    return sum(s.districts.map(d => d.rc*7.5*Math.max(0,65-d.road)/65 + d.wc*10*Math.max(0,65-d.water)/65 + d.fc*4.2*Math.max(0,65-d.facility)/65));
+  }
+  function defaultPlan(s) {return {projects:[],stops:[],upkeep:s.upkeep,waterRate:s.waterRate,borrow:0};}
+  function createState(options={}) {
+    const s={version:VERSION,year:0,seed:options.seed||2048,events:!!options.events,funds:15,debt:38,upkeep:1,waterRate:100,crisisYears:0,districts:[],projects:[],programs:[],completed:{},history:[],nextId:1};
+    s.districts=SPECS.map(d=>({...clone(d),ages:apportion(d.n,d.ages),flags:{roadMerge:false,waterMerge:false,facilityMerge:false},trust:66}));
+    s.initialWorkers=sum(s.districts.map(d=>d.ages[1]+d.ages[2]));
+    s.initialOld=sum(s.districts.map(d=>d.ages[3]+d.ages[4]));
+    s.initialJobs=weighted(s,d=>d.jobs);
+    const fin=finance(s,defaultPlan(s));
+    s.history.push(snapshot(s,{births:0,deaths:0,incoming:0,outgoing:0,internal:0},null,fin,[]));
+    return s;
+  }
+  function quote(s,pid,target) {
+    const p=policy(pid); if (!p) throw new Error('不明な施策です。');
+    const d = p.town?null:district(s,target); if (!p.town && !d) throw new Error('地区が見つかりません。');
+    const cost=(p.cost || d[p.basis]*p.mult)*Math.pow(1.004,s.year);
+    return {total:cost,grant:cost*p.grant,own:cost*(1-p.grant),installment:cost/p.years,ownYear:cost*(1-p.grant)/p.years,annual:p.annual||0,years:p.years,staff:p.staff};
+  }
+  function usedStaff(s,plan) {
+    return sum(s.projects.map(p=>p.staff))+sum(plan.projects.map(p=>policy(p.policy).staff));
+  }
+  function eligibility(s,pid,target,plan=defaultPlan(s),skipCapacity=false) {
+    const p=policy(pid); if(!p) return '不明な施策';
+    if (s.year>=HORIZON) return '30年計画は終了しました';
+    target=p.town?'town':target;
+    const d=district(s,target);
+    if(!p.town&&!d) return '地区を選択してください';
+    if (p.years > HORIZON-s.year) return '任期内に完成しません';
+    if (plan.projects.some(x=>x.policy===pid&&x.target===target)) return '計画済み';
+    if (s.projects.concat(plan.projects).some(x=>x.target===target&&policy(x.policy).asset===p.asset)) return '同じ分野の事業が進行・計画中です';
+    if (p.annual && active(s,pid,target)) return 'すでに運用中です';
+    const last=s.completed[pid+':'+target];
+    if (p.cooldown && last!==undefined && s.year-last<p.cooldown) return `完了後${p.cooldown}年の間隔が必要（あと${p.cooldown-(s.year-last)}年）`;
+    if (pid==='road_care' && (d.road<42||d.road>88)) return d.road<42?'損傷が進んでいます。重点更新が必要':'まだ予防修繕の時期ではありません';
+    if (pid==='road_merge' && d.flags.roadMerge) return '道路は集約済みです';
+    if (pid==='road_merge' && pop(d)>1500) return '人口1,500人以下の地区が対象';
+    if ((pid==='road_merge'||pid==='facility_merge') && effective(s,d,'mobility')<58) return '先に交通を確保してください（交通58以上）';
+    if (pid==='water_merge' && d.flags.waterMerge) return '給水設備は転換済みです';
+    if (pid==='water_merge' && pop(d)>1600) return '人口1,600人以下の地区が対象';
+    if (pid==='facility_merge' && d.flags.facilityMerge) return '施設は複合化済みです';
+    if (pid==='housing' && d.vacant-d.homes<8) return '改修対象の空き家が不足しています';
+    if (pid==='relocation' && (d.id==='center'||d.id==='east'||d.id==='south')) return '周辺集落からの住み替えが対象';
+    if (pid==='relocation' && district(s,'center').homes<5) return '中央駅前の入居可能な住宅が不足';
+    if (pid==='relocation' && d.trust<40) return '先に生活条件を改善し、信頼40以上へ';
+    if (!skipCapacity && usedStaff(s,plan)+p.staff>capacity(s,plan)) return '今年度の事業実施余力が不足しています';
+    return '';
+  }
+  function finance(s, plan=defaultPlan(s)) {
+    const n=townPop(s),ratio=n/BASE_POP,workers=sum(s.districts.map(d=>d.ages[1]+d.ages[2]));
+    const old=sum(s.districts.map(d=>d.ages[3]+d.ages[4]));
+    const tax=9*workers/Math.max(1,s.initialWorkers||workers)+4*Math.pow(ratio,.25)+1.8*weighted(s,d=>d.jobs)/Math.max(1,s.initialJobs||weighted(s,d=>d.jobs));
+    const transfer=(31.2*(.38+.62*Math.pow(ratio,.65))+clamp(.35*(14.8-tax),-3,3))*Math.pow(.999,s.year);
+    const other=5.5*(.85+.15*ratio),waterIncome=3*ratio*plan.waterRate/100;
+    const inflation=Math.pow(1.004,s.year);
+    const shared=active(s,'shared','town')&&!plan.stops.includes('shared:town');
+    const basic=(19.2-(shared?.22:0))*inflation;
+    const resident=(13.2*Math.pow(ratio,.82)+2.2*old/Math.max(1,s.initialOld||old))*inflation;
+    const roads=sum(s.districts.map(d=>d.rc))*inflation*plan.upkeep;
+    const water=sum(s.districts.map(d=>d.wc))*inflation*plan.upkeep;
+    const facilities=sum(s.districts.map(d=>d.fc))*inflation*plan.upkeep;
+    const running=sum(s.programs.filter(p=>!plan.stops.includes(p.policy+':'+p.target)).map(p=>policy(p.policy).annual))*inflation;
+    const emergency=sum(s.districts.map(d=>(d.rc*Math.max(0,40-d.road)/40+d.wc*Math.max(0,40-d.water)/40+d.fc*Math.max(0,35-d.facility)/35)))*.7*inflation;
+    const repayment=Math.min(s.debt,s.debt*.04),interest=(s.debt+plan.borrow)*.015;
+    const grossProjects=sum(s.projects.map(p=>p.installment))+sum(plan.projects.map(p=>quote(s,p.policy,p.target).installment));
+    const projectGrants=sum(s.projects.map(p=>p.installment*p.grantRate))+sum(plan.projects.map(p=>{const q=quote(s,p.policy,p.target);return q.installment*policy(p.policy).grant;}));
+    const waterProjects=sum(s.projects.filter(p=>policy(p.policy).asset==='water').map(p=>p.installment*(1-p.grantRate)))+sum(plan.projects.filter(p=>policy(p.policy).asset==='water').map(p=>quote(s,p.policy,p.target).ownYear));
+    const revenue=tax+transfer+other+waterIncome;
+    const expense=basic+resident+roads+water+facilities+running+emergency+repayment+interest;
+    const operating=revenue-expense;
+    const balance=operating-grossProjects+projectGrants;
+    return {tax,transfer,other,waterIncome,basic,resident,roads,water,facilities,running,emergency,repayment,interest,revenue,expense,operating,grossProjects,projectGrants,waterProjects,balance,borrow:plan.borrow,fundsAfter:s.funds+balance+plan.borrow,debtAfter:Math.max(0,s.debt-repayment+plan.borrow),waterBalance:waterIncome-water-waterProjects};
+  }
+  function random(seed,year,salt) {
+    let x=(seed+Math.imul(year,2654435761)+Math.imul(salt,2246822519))|0;
+    x^=x>>>16;x=Math.imul(x,0x7feb352d);x^=x>>>15;x=Math.imul(x,0x846ca68b);x^=x>>>16;
+    return (x>>>0)/4294967296;
+  }
+  function complete(s, project, log) {
+    const p=policy(project.policy),d=district(s,project.target);
+    const label=(d?d.name:'町全体')+'：'+p.name;
+    let note=p.effect;
+    switch(p.id) {
+      case 'road_care': d.road=clamp(d.road+17,0,100);break;
+      case 'road_rebuild':d.road=98;break;
+      case 'road_merge':d.rc*=.70;d.road=clamp(d.road+12,0,100);d.mobility=clamp(d.mobility-3,0,100);d.flags.roadMerge=true;break;
+      case 'water_rebuild':d.water=98;break;
+      case 'water_merge':d.wc*=.68;d.water=92;d.flags.waterMerge=true;break;
+      case 'facility_care':d.facility=94;d.childcare=clamp(d.childcare+3,0,100);break;
+      case 'facility_merge':d.fc*=.70;d.facility=90;d.access=clamp(d.access-3,0,100);d.flags.facilityMerge=true;break;
+      case 'housing': {const add=Math.min(40,Math.max(0,Math.floor(d.vacant-d.homes)));d.homes+=add;note=`入居可能な空き家 +${add}戸`;break;}
+      case 'succession':d.jobs=clamp(d.jobs+14,0,100);break;
+      case 'startup':d.jobs=clamp(d.jobs+18,0,100);break;
+      case 'relocation': {
+        const to=district(s,'center'),n=Math.min(28,Math.floor(to.homes*2.3),Math.floor(pop(d)*.08));
+        const moved=apportion(n,d.ages);
+        for(let i=0;i<5;i++){d.ages[i]-=moved[i];to.ages[i]+=moved[i];}
+        to.homes=Math.max(0,to.homes-n/2.3);to.vacant=Math.max(to.homes,to.vacant-n/2.3);
+        d.vacant+=n/2.3;d.homes+=n/2.3*.35;
+        s._internal=(s._internal||0)+n;
+        note=`${n}人が中央駅前へ町内転居（町全体の人口増減なし）`;
+        break;
+      }
+    }
+    if(p.annual) s.programs.push({policy:p.id,target:project.target,since:s.year});
+    s.completed[p.id+':'+project.target]=s.year;
+    log.push({type:'complete',text:label+'が完成。'+note});
+  }
+  function step(s0, plan0=defaultPlan(s0)) {
+    if (s0.year>=HORIZON) throw new Error('30年間の計画は終了しています。');
+    const s=clone(s0),plan=clone(plan0);
+    if(![.85,1,1.15].includes(plan.upkeep))throw new Error('維持管理水準が不正です。');
+    if(!Number.isFinite(plan.borrow)||plan.borrow<0||plan.borrow>5||s.debt+plan.borrow>65+1e-8 && plan.borrow>0) throw new Error('通常借入の上限を超えています。');
+    if(!Number.isFinite(plan.waterRate)||plan.waterRate<80||plan.waterRate>140||Math.abs(plan.waterRate-s.waterRate)>5)throw new Error('水道料金は年5ポイントまで変更できます。');
+    if(usedStaff(s,plan)>capacity(s,plan))throw new Error('事業実施余力を超えています。');
+    const checked={...plan,projects:[]};
+    for(const p of plan.projects){
+      const why=eligibility(s,p.policy,p.target,checked);
+      if(why)throw new Error(why);
+      checked.projects.push(p);
+    }
+    const f=finance(s,plan),logs=[],prevPop=townPop(s),year=s.year+1;
+    s.programs=s.programs.filter(p=>{
+      if(plan.stops.includes(p.policy+':'+p.target)) {logs.push({type:'policy',text:(district(s,p.target)?.name||'町全体')+'：'+policy(p.policy).name+'を終了。運用効果と年間費用を解除。'});return false;}
+      return true;
+    });
+    for(const pp of plan.projects){
+      const p=policy(pp.policy),q=quote(s,p.id,pp.target);
+      s.projects.push({uid:s.nextId++,policy:p.id,target:p.town?'town':pp.target,years:p.years,remaining:p.years,staff:p.staff,installment:q.installment,grantRate:p.grant,start:year,total:q.total});
+      logs.push({type:'start',text:(district(s,pp.target)?.name||'町全体')+'：'+p.name+'に着手（'+p.years+'年事業）'});
+    }
+    s.year=year;s.upkeep=plan.upkeep;s.waterRate=plan.waterRate;
+    s.funds=f.fundsAfter;s.debt=f.debtAfter;s._internal=0;
+    for(const p of s.projects){p.remaining--;if(p.remaining===0)complete(s,p,logs);}
+    s.projects=s.projects.filter(p=>p.remaining>0);
+    const wear=plan.upkeep===.85?1.6:plan.upkeep===1.15?.55:1;
+    for(const d of s.districts){
+      d.road=clamp(d.road-(1.65+.35*d.remote)*wear,0,100);
+      d.water=clamp(d.water-(1.9+.3*d.remote)*wear,0,100);
+      d.facility=clamp(d.facility-1.55*wear,0,100);
+      d.jobs=clamp(d.jobs-(.30+.25*d.remote),0,100);
+      d.childcare=clamp(d.childcare-.16,0,100);d.mobility=clamp(d.mobility-.22,0,100);
+    }
+    let eventCost=0;
+    if(s.events && random(s.seed,year,1)<.34){
+      const d=s.districts[Math.floor(random(s.seed,year,2)*s.districts.length)];
+      const type=Math.floor(random(s.seed,year,3)*4);
+      if(type===0){const vulnerability=1+(100-d.road)/100;d.road=clamp(d.road-5*vulnerability,0,100);eventCost=.18*vulnerability;logs.push({type:'event',text:'大雨：'+d.name+'で道路損傷。応急対応 '+eventCost.toFixed(2)+'億円。'});}
+      if(type===1){d.jobs=clamp(d.jobs-5,0,100);logs.push({type:'event',text:'事業所の廃業：'+d.name+'の仕事の充実度 −5。'});}
+      if(type===2){d.jobs=clamp(d.jobs+4,0,100);logs.push({type:'event',text:'地元の販路開拓：'+d.name+'の仕事の充実度 +4。'});}
+      if(type===3){eventCost=.22;d.mobility=clamp(d.mobility-1,0,100);logs.push({type:'event',text:'豪雪：除雪等の臨時対応 '+eventCost.toFixed(2)+'億円。'});}
+    }
+    s.funds-=eventCost;
+    const delta={births:0,deaths:0,incoming:0,outgoing:0,internal:s._internal,byDistrict:[]};
+    const mortality=[.0004,.0006,.0032,.018,.075];
+    for(let di=0;di<s.districts.length;di++){
+      const d=s.districts[di],before=pop(d),ages=d.ages.slice();
+      const living=life(s,d),child=effective(s,d,'childcare');
+      const mortalityN=apportion(Math.round(sum(ages.map((n,i)=>n*mortality[i]))),ages.map((n,i)=>n*mortality[i]));
+      const deaths=sum(mortalityN);
+      let survivors=ages.map((n,i)=>Math.max(0,n-mortalityN[i]));
+      const aged=survivors.slice(),spans=[15,25,25,15];
+      for(let i=0;i<4;i++){const flow=Math.round(survivors[i]/spans[i]);aged[i]-=flow;aged[i+1]+=flow;}
+      const births=Math.round(ages[1]*(.023+.016*child/100)*(.88+.12*living/100));
+      aged[0]+=births;
+      const job=clamp((d.jobs-25)/55,0,1.35);
+      const accessFactor=clamp(.65+living/150,.65,1.32);
+      const candidate=before*(.006+.015*job)*(1-.20*d.remote)*(.76+child/150)*accessFactor*(active(s,'migration',d.id)?1.35:1);
+      const outRate=.006+.009*(1-clamp(job,0,1))+.005*Math.max(0,(65-living)/40)+.0025*d.remote+.001*Math.max(0,(55-d.trust)/30);
+      const outgoing=Math.min(Math.round(sum(aged)*.2),Math.round(before*outRate));
+      const weights=aged.map((n,i)=>n*[.6,2.2,1.0,.22,.12][i]);
+      const leave=apportion(outgoing,weights);
+      // Guard very small populations against taking more members than a cohort contains.
+      let actualOut=0;
+      for(let i=0;i<5;i++){const n=Math.min(aged[i],leave[i]);aged[i]-=n;actualOut+=n;}
+      d.vacant+=actualOut/2.3*.68+deaths*.15;
+      d.homes=clamp(d.homes*.96+actualOut/2.3*.38+deaths*.09,0,d.vacant);
+      const incoming=Math.min(Math.round(candidate),Math.floor(d.homes*2.3));
+      const arrive=apportion(incoming,[20,50,25,4,1]);
+      for(let i=0;i<5;i++)aged[i]+=arrive[i];
+      d.homes=Math.max(0,d.homes-incoming/2.3);d.vacant=Math.max(d.homes,d.vacant-incoming/2.3);
+      d.ages=aged;
+      d.trust=clamp(d.trust+(living-65)*.055-Math.max(0,s.waterRate-100)*.012-(d.water<30?.6:0),15,95);
+      delta.births+=births;delta.deaths+=deaths;delta.incoming+=incoming;delta.outgoing+=actualOut;
+      delta.byDistrict.push({id:d.id,before,after:pop(d),births,deaths,incoming,outgoing:actualOut,candidates:Math.round(candidate),housingBlocked:Math.max(0,Math.round(candidate)-incoming)});
+    }
+    let emergencyBorrow=0;
+    if(s.funds<0){emergencyBorrow=-s.funds;s.debt+=emergencyBorrow;s.funds=0;s.crisisYears++;logs.push({type:'danger',text:'基金が不足。緊急つなぎ資金 '+emergencyBorrow.toFixed(2)+'億円を借入（ゲーム上の救済措置）。'});}
+    const blocked=sum(delta.byDistrict.map(d=>d.housingBlocked));
+    if(blocked>10)logs.push({type:'insight',text:'入居できる住宅が不足し、転入候補 '+blocked+'人分を受け入れられませんでした。'});
+    if(delta.births<delta.deaths)logs.push({type:'insight',text:'自然減 '+(delta.deaths-delta.births)+'人。年齢構成の影響はすぐには変わりません。'});
+    const weak=s.districts.filter(d=>Math.min(d.road,d.water,d.facility)<35);
+    if(weak.length)logs.push({type:'warning',text:weak.map(d=>d.name).join('・')+'で健全度35未満の設備があります。応急対応費と生活への影響に注意。'});
+    f.eventCost=eventCost;f.emergencyBorrow=emergencyBorrow;f.actualBalance=f.balance-eventCost;
+    f.actualFunds=s.funds;f.actualDebt=s.debt;
+    const expected=prevPop+delta.births-delta.deaths+delta.incoming-delta.outgoing;
+    if(townPop(s)!==expected)throw new Error('人口収支に不整合があります。');
+    delete s._internal;
+    const row=snapshot(s,delta,plan,f,logs);
+    s.history.push(row);
+    return {state:s,report:row};
+  }
+  function snapshot(s,delta,plan,f,logs){
+    return {year:s.year,population:townPop(s),funds:s.funds,debt:s.debt,oldRate:weighted(s,d=>(d.ages[3]+d.ages[4])/Math.max(1,pop(d)))*100,safety:safety(s),life:weighted(s,d=>life(s,d)),jobs:weighted(s,d=>d.jobs),trust:weighted(s,d=>d.trust),backlog:infrastructureNeed(s),delta:clone(delta),plan:plan?clone(plan):null,finance:clone(f),logs:clone(logs)};
+  }
+  function baseline(options={}){
+    let s=createState(options);
+    for(let i=0;i<HORIZON;i++)s=step(s).state;
+    return s.history;
+  }
+  function score(s,reference){
+    const n=townPop(s),f=finance(s),need=infrastructureNeed(s);
+    const people=clamp(100-(10000-n)*.025,0,100);
+    const fiscal=clamp(83+s.funds*.75+f.operating*7-s.debt*.65-need*.55-s.crisisYears*3,0,100);
+    const services=weighted(s,d=>life(s,d));
+    const young=weighted(s,d=>(d.ages[0]+d.ages[1])/Math.max(1,pop(d)));
+    const generations=clamp(young/.36*100,0,100);
+    const infra=safety(s);
+    const total=Math.round(people*.30+fiscal*.25+infra*.20+services*.15+generations*.10);
+    const label=total>=85?'暮らしを次世代へつないだ町':total>=70?'持続への道筋が見えた町':total>=55?'変化の途中にある町':total>=40?'再設計が必要な町':'厳しい選択を残した町';
+    const diff=reference?n-(reference[s.year]?.population||n):0;
+    return {total,label,diff,people,fiscal,infra,services,generations,operating:f.operating};
+  }
+  function validateState(raw){
+    if(!raw||typeof raw!=='object'||raw.version!==VERSION)throw new Error('対応するセーブデータではありません。');
+    const s=clone(raw);
+    function number(n,min,max,name){if(typeof n!=='number'||!Number.isFinite(n)||n<min||n>max)throw new Error(name+'の値が不正です。');}
+    number(s.year,0,30,'年度');if(!Number.isInteger(s.year))throw new Error('年度が不正です。');
+    number(s.seed,0,4294967295,'シード');number(s.funds,0,1e6,'基金');number(s.debt,0,1e6,'借入');number(s.nextId,1,100000,'事業ID');
+    number(s.initialWorkers,1,100000,'初期生産年齢人口');number(s.initialOld,1,100000,'初期高齢人口');number(s.initialJobs,1,100,'初期雇用');number(s.crisisYears,0,30,'危機年度');
+    if(typeof s.events!=='boolean'||![.85,1,1.15].includes(s.upkeep))throw new Error('設定が不正です。');number(s.waterRate,80,140,'水道料金');
+    if(!Array.isArray(s.districts)||s.districts.length!==8)throw new Error('地区データが不正です。');
+    SPECS.forEach((spec,i)=>{
+      const d=s.districts[i];if(d.id!==spec.id)throw new Error('地区IDが一致しません。');
+      d.name=spec.name;d.kind=spec.kind;d.x=spec.x;d.y=spec.y;d.remote=spec.remote;
+      if(!Array.isArray(d.ages)||d.ages.length!==5)throw new Error('年齢構成が不正です。');d.ages.forEach(n=>{number(n,0,100000,'人口');if(!Number.isInteger(n))throw new Error('人口は整数です。');});
+      ['road','water','facility','jobs','childcare','mobility','access','trust'].forEach(k=>number(d[k],0,100,k));
+      ['rc','wc','fc'].forEach(k=>number(d[k],.001,100,k));['homes','vacant'].forEach(k=>number(d[k],0,100000,k));
+      if(!d.flags||['roadMerge','waterMerge','facilityMerge'].some(k=>typeof d.flags[k]!=='boolean'))throw new Error('施設状態が不正です。');
+    });
+    const validTarget=t=>t==='town'||SPECS.some(d=>d.id===t);
+    if(!Array.isArray(s.projects)||s.projects.length>20)throw new Error('事業データが不正です。');
+    s.projects.forEach(p=>{const def=policy(p.policy);if(!def||!validTarget(p.target)||(def.town?p.target!=='town':p.target==='town'))throw new Error('事業が不正です。');number(p.remaining,1,def.years,'残工期');if(!Number.isInteger(p.remaining))throw new Error('残工期は整数です。');if(p.staff!==def.staff||p.grantRate!==def.grant||p.years!==def.years)throw new Error('事業条件が不正です。');number(p.installment,.001,100,'年度事業費');number(p.total,.001,1000,'総事業費');number(p.uid,1,100000,'事業ID');number(p.start,1,30,'開始年度');});
+    if(!Array.isArray(s.programs)||s.programs.length>40)throw new Error('運用データが不正です。');
+    const keys=new Set();s.programs.forEach(p=>{const def=policy(p.policy),k=p.policy+':'+p.target;if(!def?.annual||!validTarget(p.target)||(def.town?p.target!=='town':p.target==='town')||keys.has(k))throw new Error('運用中事業が不正です。');keys.add(k);number(p.since,0,30,'開始年度');});
+    if(!s.completed||typeof s.completed!=='object'||Array.isArray(s.completed))throw new Error('完了履歴が不正です。');
+    Object.entries(s.completed).forEach(([key,y])=>{const [p,t]=key.split(':');if(!policy(p)||!validTarget(t))throw new Error('完了施策が不正です。');number(y,0,30,'完了年');});
+    if(!Array.isArray(s.history)||s.history.length!==s.year+1)throw new Error('年度記録が不正です。');
+    s.history.forEach((h,i)=>{
+      if(h.year!==i)throw new Error('年度記録の順番が不正です。');
+      ['population','funds','debt','safety','life','oldRate','jobs','trust','backlog'].forEach(k=>number(h[k],0,1e7,k));
+      if(!h.delta||!h.finance||!Array.isArray(h.logs)||h.logs.length>100)throw new Error('年度結果が不正です。');
+      ['births','deaths','incoming','outgoing','internal'].forEach(k=>number(h.delta[k],0,1e7,k));
+      Object.values(h.finance).forEach(v=>{if(typeof v!=='number'||!Number.isFinite(v)||Math.abs(v)>1e8)throw new Error('会計記録が不正です。');});
+      if(h.delta.byDistrict){if(!Array.isArray(h.delta.byDistrict)||h.delta.byDistrict.length!==8)throw new Error('地区収支が不正です。');h.delta.byDistrict.forEach(d=>{if(!validTarget(d.id))throw new Error('地区収支IDが不正です。');['before','after','births','deaths','incoming','outgoing','candidates','housingBlocked'].forEach(k=>number(d[k],0,1e7,k));});}
+      h.logs.forEach(l=>{if(!l||typeof l.text!=='string'||l.text.length>2000||typeof l.type!=='string')throw new Error('ログが不正です。');});
+    });
+    if(s.history[s.year].population!==townPop(s))throw new Error('保存人口と年度記録が一致しません。');
+    if(usedStaff(s,defaultPlan(s))>capacity(s))throw new Error('実施余力の整合性がありません。');
+    return s;
+  }
+  return {VERSION,HORIZON,BASE_POP,SPECS,P,clamp,sum,clone,pop,townPop,weighted,r2,policy,district,effective,life,safety,capacity,infrastructureNeed,defaultPlan,createState,quote,usedStaff,eligibility,finance,step,baseline,score,validateState};
+});
+
+</script>
+<script>
+(function () {
+  'use strict';
+  const E = window.MachiEngine;
+  const BUILD = '配布試遊版 2026-09-11';
+  const KEY = 'machi-tsunagu-v010';
+  const NF = new Intl.NumberFormat('ja-JP');
+  const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const num = n => NF.format(Math.round(n));
+  const money = n => (n < -.00001 ? '−' : '') + Math.abs(n).toFixed(2);
+  const signed = n => (n > 0 ? '+' : n < 0 ? '−' : '±') + num(Math.abs(n));
+  const signedMoney = n => (n > .00001 ? '+' : n < -.00001 ? '−' : '±') + Math.abs(n).toFixed(2);
+  const paths = {
+    leaf:'<path d="M4 20V10l8-6 8 6v10H4Z"/><path d="M8 20v-6h4v6M16 8V3m0 3 4-2M16 6l-3-2"/>',
+    people:'<circle cx="9" cy="7" r="3"/><path d="M3 21v-4a6 6 0 0 1 12 0v4M16 4a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 5v3"/>',
+    coins:'<ellipse cx="9" cy="6" rx="6" ry="3"/><path d="M3 6v5c0 4 12 4 12 0V6M3 11v5c0 3 7 4 11 2M17 10c5 0 6 5 1 6m-3-2v5c0 3 7 3 7 0v-5"/>',
+    bank:'<path d="m3 8 9-5 9 5H3ZM5 10v8m5-8v8m4-8v8m5-8v8M3 21h18M3 18h18"/>',
+    shield:'<path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/>',
+    heart:'<path d="M20 5c-3-3-6-1-8 2-2-3-5-5-8-2-4 4 1 9 8 15 7-6 12-11 8-15Z"/>',
+    save:'<path d="M4 3h13l3 3v15H4V3Z"/><path d="M8 3v6h8V3M8 21v-8h8v8"/>',
+    download:'<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>',
+    upload:'<path d="M12 16V4m-5 5 5-5 5 5M4 17v4h16v-4"/>',
+    help:'<circle cx="12" cy="12" r="9"/><path d="M9 8a3 3 0 1 1 4 3c-1 1-1 2-1 3m0 3v.1"/>',
+    reset:'<path d="M4 10a8 8 0 1 1 1 7M4 4v6h6"/>',
+    arrow:'<path d="M4 12h15m-6-6 6 6-6 6"/>',
+    check:'<path d="m5 12 4 4L20 5"/>',
+    road:'<path d="m6 3-3 18M18 3l3 18M12 3v4m0 3v4m0 3v4"/>',
+    bridge:'<path d="M2 18h20M5 18V5m14 13V5M5 8c4 9 10 9 14 0M8 18v-6m4 6v-4m4 4v-6"/>',
+    route:'<circle cx="5" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M7 5h8a4 4 0 0 1 0 8H9a4 4 0 0 0 0 8h4"/>',
+    water:'<path d="M12 2c0 0-7 8-7 13a7 7 0 0 0 14 0c0-5-7-13-7-13Z"/><path d="M9 15a3 3 0 0 0 3 3"/>',
+    building:'<path d="M4 21V4h11v17M15 10h5v11M2 21h20M8 8h3m-3 4h3m-3 4h3"/>',
+    bus:'<rect x="5" y="3" width="14" height="17" rx="3"/><path d="M5 12h14M8 20v2m8-2v2M8 16h.1m8 0h.1M9 6h6"/>',
+    home:'<path d="m2 11 10-8 10 8M5 9v12h14V9M10 21v-7h4v7"/>',
+    work:'<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V3h8v4M3 12c6 4 12 4 18 0M12 12v5"/>',
+    link:'<path d="m10 14 4-4M8 15l-1 1a4 4 0 0 1-6-6l4-4a4 4 0 0 1 6 0m2 3 1-1a4 4 0 0 1 6 6l-4 4a4 4 0 0 1-6 0"/>',
+    clock:'<circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/>',
+    flag:'<path d="M5 22V3m0 1c5-4 9 4 15 0v10c-6 4-10-4-15 0"/>',
+    chart:'<path d="M3 3v18h18M6 16l5-5 4 2 6-8"/>',
+    alert:'<path d="m12 3 10 18H2L12 3Z"/><path d="M12 9v5m0 3v.1"/>'
+  };
+  function icon(name, cls='') {return `<svg class="icon ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]||paths.leaf}</svg>`;}
+  let state = E.createState(), plan = E.defaultPlan(state), reference = [], selected = 'center', tab = 'overview', filter = 'すべて', layer = 'district';
+  let saveLabel = '自動保存', saveOK = true, toastTimer, modalReturnFocus = null;
+  let loaded = false;
+  function cleanPlan(raw,s) {
+    const p=E.defaultPlan(s);
+    if(!raw||typeof raw!=='object')return p;
+    if([.85,1,1.15].includes(raw.upkeep))p.upkeep=raw.upkeep;
+    if(typeof raw.waterRate==='number'&&raw.waterRate>=80&&raw.waterRate<=140&&Math.abs(raw.waterRate-s.waterRate)<=5)p.waterRate=raw.waterRate;
+    if(typeof raw.borrow==='number'&&Number.isFinite(raw.borrow)&&raw.borrow>=0&&raw.borrow<=5&&raw.borrow+s.debt<=65)p.borrow=raw.borrow;
+    if(Array.isArray(raw.stops))p.stops=raw.stops.filter(k=>typeof k==='string'&&s.programs.some(x=>x.policy+':'+x.target===k));
+    if(E.usedStaff(s,p)>E.capacity(s,p))p.stops=[];
+    if(Array.isArray(raw.projects))for(const q of raw.projects.slice(0,15)){if(q&&typeof q.policy==='string'&&typeof q.target==='string'&&!E.eligibility(s,q.policy,q.target,p))p.projects.push({policy:q.policy,target:q.target});}
+    return p;
+  }
+  function loadPayload(raw) {
+    if(!raw||raw.kind!=='machi-save')throw new Error('このゲームのセーブデータを選んでください。');
+    const ns=E.validateState(raw.state);
+    const np=cleanPlan(raw.plan,ns);
+    state=ns;plan=np;
+    selected=E.SPECS.some(d=>d.id===raw.selected)?raw.selected:'center';
+    reference=E.baseline({seed:state.seed,events:state.events});
+  }
+  try {const text=localStorage.getItem(KEY);if(text){loadPayload(JSON.parse(text));loaded=true;saveLabel='前回の続き';}} catch(err){saveOK=false;saveLabel='書き出し推奨';console.warn('保存の復元ができませんでした。',err);}
+  if(!reference.length)reference=E.baseline({seed:state.seed,events:state.events});
+  function payload(){return {kind:'machi-save',version:E.VERSION,savedAt:new Date().toISOString(),state:E.clone(state),plan:E.clone(plan),selected};}
+  function save(show=false){
+    try {localStorage.setItem(KEY,JSON.stringify(payload()));saveOK=true;saveLabel='自動保存済み';if(show)toast('このブラウザに保存しました。大切な記録は書き出しでも保管してください。');}
+    catch(err){saveOK=false;saveLabel='書き出し推奨';if(show)toast('ブラウザ内保存が使えません。「書き出し」で保存してください。');}
+    const el=document.getElementById('save-label');if(el)el.textContent=saveLabel;
+  }
+  function download(name,data,type){
+    const blob=new Blob([data],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+  }
+  function toast(text){const el=document.getElementById('toast');el.textContent=text;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),4200);}
+  function districtOptions(){return state.districts.map(d=>`<option value="${d.id}" ${selected===d.id?'selected':''}>${d.name}</option>`).join('');}
+  function metric(label,value,unit,foot,ic,cls=''){return `<div class="metric ${cls}"><div class="label">${icon(ic,'sm')}${label}</div><div class="value num">${value}<span class="unit">${unit}</span></div><div class="foot">${foot}</div></div>`;}
+  function render(){
+    const f=E.finance(state,plan),h=state.history[state.year],last=state.year?state.history[state.year-1]:null,complete=state.year===30;
+    const nextYear=Math.min(30,state.year+1),yearTitle=complete?'30年間の運営を振り返る':`第${nextYear}年度の町を考える`;
+    const subtitles={overview:'残す、直す、まとめる。暮らしの次の一手を。',policies:'事業は年度末に進みます。工期中は毎年、費用と実施余力を使います。',budget:'恒常的な収支と、一時的な借入・基金取崩しを分けて確認。',history:'あなたの選択と「現状維持」の町を、同じ条件で比べる。'};
+    document.getElementById('app').innerHTML=`
+      <header class="topbar"><div class="topbar-inner">
+      <div class="brand"><div class="brand-mark">${icon('leaf')}</div><div><h1>まちを、つなぐ。</h1><p>人口1万人の町の30年</p></div></div>
+      <div class="header-year">山あい町 <span class="muted">／ 架空の自治体</span><br><strong class="num">${String(nextYear).padStart(2,'0')}</strong> / 30年度</div>
+      <div class="top-tools"><span class="saved-label" id="save-label">${saveLabel}</span>
+      <button class="btn small ghost" data-action="save" title="ブラウザに保存" aria-label="ブラウザに保存">${icon('save')}<span class="text-label">保存</span></button>
+      <button class="btn small ghost" data-action="export" title="セーブデータを書き出す" aria-label="セーブデータを書き出す">${icon('download')}<span class="text-label">書き出し</span></button>
+      <button class="btn small ghost" data-action="import" title="セーブデータを読み込む" aria-label="セーブデータを読み込む">${icon('upload')}<span class="text-label">読込</span></button>
+      <button class="btn small ghost" data-action="help" title="遊び方と計算ルール" aria-label="遊び方と計算ルール">${icon('help')}<span class="text-label">遊び方</span></button>
+      <button class="btn small ghost" data-action="feedback" title="試遊メモを書き出す" aria-label="試遊メモ">${icon('flag')}<span class="text-label">試遊メモ</span></button>
+      <button class="btn small ghost" data-action="reset" title="はじめから" aria-label="はじめから">${icon('reset')}</button></div></div>
+      <nav class="app-nav" aria-label="ゲーム画面">${[['overview','町の概況'],['policies','施策を選ぶ'],['budget','予算と事業'],['history','30年の記録']].map(([id,label])=>`<button class="nav-button ${tab===id?'active':''}" data-tab="${id}" ${tab===id?'aria-current="page"':''}>${label}${id==='policies'&&plan.projects.length?` <span class="badge">${plan.projects.length}</span>`:''}</button>`).join('')}<span class="nav-hint"><span class="legend-dot"></span>突発イベント ${state.events?'ON':'OFF'} <span class="badge outline">試作 v${E.VERSION}</span> <span class="build-note">${BUILD}</span></span></nav></header>
+      <main class="shell"><div class="page-heading"><div><div class="eyebrow">${complete?'30年計画・終了':`計画 ${String(nextYear).padStart(2,'0')} / 30`}</div><h2>${yearTitle}</h2><p>${subtitles[tab]}</p></div><div class="year-track"><div class="between"><span>経過年数</span><span class="num">${state.year} / 30</span></div><div class="track"><i style="width:${state.year/30*100}%"></i></div></div></div>
+      <section class="metrics" aria-label="町の主要指標">
+      ${metric('町の人口',num(h.population),'人',last?`前年 ${signed(h.population-last.population)}人 ／ 現状維持比 ${signed(h.population-reference[state.year].population)}人`:'8地区からなる、あなたの町。','people','featured')}
+      ${metric('経常的な収支',signedMoney(f.operating),'億円',`${complete?'翌年度参考':'計画年度'} ／ 建設事業・借入を除く`,'coins',f.operating<0?'negative':'')}
+      ${metric('基金残高',money(state.funds),'億円',`借入残高 ${money(state.debt)}億円`,'bank')}
+      ${metric('インフラ健全度',Math.round(E.safety(state)),'/100','人口加重平均 ／ 地区差に注意','shield')}
+      ${metric('暮らしの利便性',Math.round(E.weighted(state,d=>E.life(state,d))),'/100',`65歳以上 ${h.oldRate.toFixed(1)}%`,'heart')}
+      </section>
+      <div id="view">${tab==='overview'?overview(f):tab==='policies'?policiesView(f):tab==='budget'?budgetView(f):historyView()}</div>
+      <footer class="footer-note"><span>本作は架空の町・仮定の数値で遊ぶゲームです。実在自治体の財政・人口予測、制度判断には使えません。</span><span>まちを、つなぐ。 v${E.VERSION} ／ ${BUILD} ／ オフライン対応</span></footer></main>
+      <div class="actionbar"><div class="actionbar-inner"><div class="status"><div class="status-item">今年の新規事業<strong>${plan.projects.length}件 <span class="muted">／ 継続 ${state.projects.length}件</span></strong></div><div class="status-item">事業実施余力<strong class="num">${E.usedStaff(state,plan)} / ${E.capacity(state,plan)} 使用</strong><div class="capacity-pips">${Array.from({length:E.capacity(state,plan)},(_,i)=>`<i class="${i<E.usedStaff(state,plan)?'on':''}"></i>`).join('')}</div></div><div class="status-item">${complete?'30年後の基金':'年度末の基金見込み'}<strong class="num ${f.fundsAfter<0&&!complete?'negative':''}">${money(complete?state.funds:f.fundsAfter)} 億円</strong></div></div><button class="btn primary" data-action="${complete?'ending':'advance'}">${complete?'30年間の成績を見る':`第${nextYear}年度を実行`}${icon(complete?'flag':'arrow')}</button></div></div>`;
+  }
+  const regions={remote:'56,36 239,29 284,127 210,183 57,161',north:'239,29 467,25 501,144 369,181 284,127',upstream:'467,25 688,40 779,114 701,192 501,144',forest:'57,161 210,183 284,127 369,181 361,291 211,318 68,270',center:'369,181 501,144 551,218 590,316 471,340 361,291',east:'501,144 701,192 779,114 797,325 672,371 590,316 551,218',fields:'68,270 211,318 361,291 471,340 379,457 173,446 64,367',south:'471,340 590,316 672,371 621,451 379,457'};
+  const regionColors={remote:'#d6dfca',north:'#dbe3cf',upstream:'#dce5d3',forest:'#dfe5d2',center:'#efeadc',east:'#e8e7d9',fields:'#e8e7c9',south:'#e8e8d8'};
+  function mapHTML(){
+    const color=(d)=>layer==='district'?regionColors[d.id]:d[layer]>=65?'#d4e2cf':d[layer]>=40?'#e8ddbd':'#ebcbbd';
+    let trees='';
+    for(let i=0;i<40;i++){const x=78+(i*83)%660,y=44+(i*31)%140;if((x>290&&x<446&&y>75)||(x<227&&y>80)||(x>568&&y>80))continue;trees+=`<path d="m${x} ${y} -6 11h12Z" fill="#8ea480" opacity=".38"/><path d="M${x} ${y+11}v4" stroke="#8ea480" opacity=".5"/>`;}
+    const roads='M162 114Q210 190 257 236L450 270 663 270M402 112L418 193 450 270 480 397M626 122Q631 195 663 270M257 236L271 390 480 397M480 397Q602 424 693 376';
+    return `<svg viewBox="0 0 840 490" class="map-svg" role="group" aria-label="8地区の町の地図。地区を選択して詳しく確認できます。"><defs><pattern id="fields-pattern" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(-10)"><path d="M0 0h20M0 10h20" stroke="#babc91" stroke-width=".5" opacity=".35"/></pattern></defs>
+      <path d="M24 17Q412-11 817 22L828 459Q453 505 33 471Z" fill="#eaede2"/>
+      ${state.districts.map(d=>`<g class="district-group ${selected===d.id?'selected':''}" data-select="${d.id}" role="button" tabindex="0" aria-label="${d.name}、${num(E.pop(d))}人" aria-pressed="${selected===d.id}"><polygon class="region" fill="${color(d)}" points="${regions[d.id]}"/></g>`).join('')}
+      <polygon points="${regions.fields}" fill="url(#fields-pattern)" pointer-events="none"/>
+      <g pointer-events="none">${trees}
+      <path d="M592 23C568 91 587 153 563 198S534 256 556 307 556 380 558 412 558 446 532 475" fill="none" stroke="#a1c7cb" stroke-width="12" opacity=".8"/><path d="M592 23C568 91 587 153 563 198S534 256 556 307 556 380 558 412 558 446 532 475" fill="none" stroke="#cfe2de" stroke-width="5"/>
+      <path d="${roads}" fill="none" stroke="#f8f6e9" stroke-width="11" stroke-linejoin="round"/><path d="${roads}" fill="none" stroke="#aaae95" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M402 485L448 367 491 237 522 186 534 10" fill="none" stroke="#aab0a0" stroke-width="2.3"/><path d="M402 485L448 367 491 237 522 186 534 10" fill="none" stroke="#efefe4" stroke-width="5" stroke-dasharray="1 8"/>
+      <rect x="482" y="232" width="20" height="9" rx="2" fill="#6b7b66" stroke="#f8f6e9" stroke-width="2"/><text x="515" y="240" font-size="10" fill="#71806b">駅</text>
+      ${[[408,216],[421,206],[436,214],[414,232],[430,232],[600,222],[614,210],[626,220],[684,295],[699,299],[483,360],[497,366],[509,355],[526,383],[303,343],[318,345],[326,361],[215,262],[230,258],[391,145],[412,149],[600,151],[615,155],[177,135]].map(([x,y],i)=>`<rect x="${x}" y="${y}" width="${i%3===0?10:7}" height="${i%4===0?10:6}" rx="1" fill="#81937a" opacity=".45"/>`).join('')}
+      <text x="754" y="424" font-size="11" fill="#7b8875">N</text><path d="m758 433-5 14h10Z" fill="#809077"/><path d="M758 446v12" stroke="#809077"/>
+      </g>
+      ${state.districts.map(d=>`<g class="district-group" data-select="${d.id}" role="button" tabindex="-1" aria-label="${d.name}"><rect x="${d.x-53}" y="${d.y-23}" width="106" height="57" rx="8" fill="${selected===d.id?'#f8f7eef0':'#f4f4e877'}"/><text x="${d.x}" y="${d.y}" text-anchor="middle" class="map-name">${d.name}</text><text x="${d.x}" y="${d.y+21}" text-anchor="middle" class="map-value">${layer==='district'?num(E.pop(d))+' 人':(layer==='road'?'道路 ':'水道 ')+Math.round(d[layer])+'/100'}</text>${selected===d.id?`<circle cx="${d.x-44}" cy="${d.y-6}" r="4" fill="#3e6554"/>`:''}</g>`).join('')}</svg>`;
+  }
+  function bar(label,value){const n=E.clamp(value,0,100);return `<div class="bar-row"><span>${label}</span><div class="bar-track"><i class="${n<35?'red':n<60?'amber':''}" style="width:${n}%"></i></div><span class="num">${Math.round(n)}</span></div>`;}
+  function chart(series,{kind='population',height=165}={}){
+    const W=620,H=height,L=52,R=19,T=18,B=27;
+    const all=series.flatMap(s=>s.data.map(d=>d.value));
+    let lo=Math.min(...all),hi=Math.max(...all);
+    if(kind==='population'){lo=Math.max(0,Math.floor((lo-200)/1000)*1000);hi=Math.ceil((hi+200)/1000)*1000;}else{lo=Math.floor(Math.min(0,lo)/5)*5;hi=Math.ceil((hi+3)/5)*5;}
+    if(hi===lo)hi=lo+1;
+    const x=y=>L+y/30*(W-L-R),y=v=>T+(hi-v)/(hi-lo)*(H-T-B);
+    let grid='',labels='';
+    for(let i=0;i<=3;i++){const v=lo+(hi-lo)*i/3,yy=y(v);grid+=`<path d="M${L} ${yy}H${W-R}" stroke="#e2e5da" stroke-width="1"/>`;labels+=`<text x="${L-9}" y="${yy+3}" text-anchor="end" font-size="10" fill="#7b8275">${num(v)}</text>`;}
+    for(const t of [0,10,20,30])labels+=`<text x="${x(t)}" y="${H-7}" text-anchor="middle" font-size="10" fill="#7b8275">${t}年</text>`;
+    return `<svg viewBox="0 0 ${W} ${H}" class="chart-svg" role="img" aria-label="${kind==='population'?'人口推移':'基金と借入残高'}。詳しい値は年度記録で確認できます。">${grid}${labels}${series.map(s=>{const pts=s.data.map(d=>`${x(d.year).toFixed(2)},${y(d.value).toFixed(2)}`).join(' ');return `<polyline points="${pts}" fill="none" stroke="${s.color}" stroke-width="${s.dash?1.8:2.8}" ${s.dash?'stroke-dasharray="5 5"':''} stroke-linecap="round" stroke-linejoin="round"/>${!s.dash&&s.data.length?`<circle cx="${x(s.data.at(-1).year)}" cy="${y(s.data.at(-1).value)}" r="3.8" fill="${s.color}" stroke="#fffefa" stroke-width="2"/>`:''}`;}).join('')}</svg>`;
+  }
+  function popChart(height=165){return chart([{data:reference.map(h=>({year:h.year,value:h.population})),color:'#a4aa9b',dash:true},{data:state.history.map(h=>({year:h.year,value:h.population})),color:'#3e6554'}],{height});}
+  function districtDetail(){
+    const d=E.district(state,selected),h=state.history[state.year],dd=h.delta.byDistrict?.find(x=>x.id===selected),old=(d.ages[3]+d.ages[4])/Math.max(1,E.pop(d))*100;
+    const previousDistrictPopulation=state.year>1?(state.history[state.year-1].delta.byDistrict?.find(x=>x.id===selected)?.after??d.n):d.n;
+    const low=[['道路',d.road],['水道',d.water],['公共施設',d.facility]].sort((a,b)=>a[1]-b[1])[0];
+    let advice=low[1]<40?`${low[0]}の健全度が低下。更新や代替設備への転換を検討する時期です。`:E.effective(state,d,'mobility')<58?'施設を集約する前に、通学・生活交通を確保する必要があります。':d.homes<8?'住める空き家が少ない状態。移住支援だけでは転入を受け止められません。':'将来の更新費を見ながら、仕事・住宅・生活環境を組み合わせて整えましょう。';
+    return `<section class="panel district-panel"><div class="panel-pad"><div class="district-head"><div><div class="eyebrow">選択中の地区</div><h2>${d.name}</h2><p class="note">${d.kind}</p></div><select class="district-select" data-input="district" aria-label="地区を選択">${districtOptions()}</select></div>
+      <div class="district-numbers"><div><div class="caption">地区人口</div><div class="big num">${num(E.pop(d))}<small>人</small></div><div class="note">${dd?'前年 '+signed(E.pop(d)-previousDistrictPopulation)+'人':'町全体の '+(E.pop(d)/10000*100).toFixed(0)+'%'}</div></div><div><div class="caption">65歳以上</div><div class="big num">${old.toFixed(0)}<small>%</small></div><div class="note">住める空き家 ${Math.floor(d.homes)}戸</div></div></div>
+      <div class="bars">${bar('道路・橋',d.road)}${bar('水道',d.water)}${bar('学校・施設',d.facility)}${bar('生活交通',E.effective(state,d,'mobility'))}${bar('子育て',E.effective(state,d,'childcare'))}${bar('仕事',d.jobs)}</div>
+      <div class="detail-tags">${d.flags.roadMerge?'<span class="badge">道路集約済</span>':''}${d.flags.waterMerge?'<span class="badge">給水転換済</span>':''}${d.flags.facilityMerge?'<span class="badge">施設複合化済</span>':''}<span class="badge outline">信頼 ${Math.round(d.trust)}/100</span></div>
+      <div class="attention ${low[1]<35?'red':''}">${advice}</div><button class="btn primary detail-action" data-action="district-policies">この地区の施策を見る ${icon('arrow','sm')}</button></div></section>`;
+  }
+  function kv(label,value,cls=''){return `<div class="kv ${cls}"><span>${label}</span><span class="num">${value}</span></div>`;}
+  function overview(f){
+    const compare=E.townPop(state)-reference[state.year].population;
+    return `${state.year===0?'<div class="intro-callout"><strong>最初は、気になる地区を選ぶところから。</strong> インフラの傷みと住民の暮らしを確認し、施策を計画に追加。「年度を実行」で結果が出ます。</div>':''}
+      <div class="overview-grid"><div class="overview-main"><section class="panel map-panel"><div class="panel-head"><div><h3>町の地図 <span class="badge outline">8地区</span></h3><p>地区をクリックして、暮らしと設備を確かめる。</p></div><div class="segmented" aria-label="地図の表示切替">${[['district','地区'],['road','道路'],['water','水道']].map(([k,l])=>`<button class="${layer===k?'active':''}" data-layer="${k}">${l}</button>`).join('')}</div></div><div class="map-wrap">${mapHTML()}</div><div class="map-caption"><div class="map-legend">${layer==='district'?'<span><i class="legend-dot"></i>選択地区</span><span>線路・道路・川は位置関係の模式図</span>':'<span><i class="legend-dot"></i>65以上</span><span><i class="legend-dot amber"></i>40–64</span><span><i class="legend-dot red"></i>40未満</span>'}</div><span>実在の地形ではありません</span></div></section>
+      <div class="mini-grid"><section class="panel"><div class="panel-pad"><div class="between"><h3>${state.year===30?'翌年度の参考見通し':'今年度の資金見通し'}</h3>${icon('coins')}</div><div class="forecast-main num ${f.fundsAfter<0?'negative':''}">${money(f.fundsAfter)} <small>億円 ／ ${state.year===30?'参考・期末基金':'年度末基金'}</small></div>${kv('経常的な収支',signedMoney(f.operating)+' 億円')}${kv('事業費の町負担','−'+money(f.grossProjects-f.projectGrants)+' 億円')}${kv('新規の通常借入','+'+money(plan.borrow)+' 億円')}<p class="budget-foot">${state.year===30?'30年後の状態がもう1年続いた場合の参考試算。実際の31年度は進行しません。':'基金は町の貯金。借入は収益ではなく、将来の返済を伴います。突発イベントの費用は未計上。'}</p><button class="btn small secondary" style="margin-top:12px" data-tab="budget">予算・継続事業を確認 ${icon('arrow','sm')}</button></div></section>
+      <section class="panel"><div class="panel-pad"><div class="between"><h3>人口のゆくえ</h3><span class="badge outline">${state.year}年経過</span></div><p class="note" style="margin:7px 0 10px">現状維持の町より <strong class="${compare>=0?'positive':'negative'}">${signed(compare)}人</strong></p>${popChart(190)}<div class="chart-key"><span><i></i>あなたの町</span><span><i class="reference"></i>現状維持（30年間）</span></div><p class="budget-foot">破線は同じ初期条件で新規事業を行わない場合。あなたの町の未来予測ではありません。</p></div></section></div></div>${districtDetail()}</div>`;
+  }
+  function policiesView(f){
+    const categories=['すべて','インフラ','暮らし','産業・定住','行政'];
+    return `<div class="policy-toolbar"><div class="policy-target"><span class="eyebrow">対象地区</span><select data-input="district" aria-label="施策の対象地区">${districtOptions()}</select><span class="badge outline">${num(E.pop(E.district(state,selected)))}人</span></div><div class="filter-buttons" aria-label="施策の分類">${categories.map(c=>`<button class="${filter===c?'active':''}" data-filter="${c}">${c}</button>`).join('')}</div></div>
+      <div class="plan-strip"><div><strong>今年度の計画 ${plan.projects.length}件</strong> <span class="muted">／ 事業実施余力 ${E.usedStaff(state,plan)} / ${E.capacity(state,plan)}</span><div class="note">事業費の町負担 ${money(f.grossProjects-f.projectGrants)}億円（継続事業を含む）</div></div><button class="btn small" data-tab="budget">計画を確認 ${icon('arrow','sm')}</button></div>
+      <div class="policy-grid">${E.P.filter(p=>filter==='すべて'||p.cat===filter).map(p=>{
+        const target=p.town?'town':selected,q=E.quote(state,p.id,target),chosen=plan.projects.some(x=>x.policy===p.id&&x.target===target),why=E.eligibility(state,p.id,target,plan);
+        return `<article class="policy-card ${chosen?'chosen':''}"><div class="policy-card-top"><div class="policy-icon">${icon(p.icon)}</div><span class="badge ${p.cat==='インフラ'?'':'gold'}">${p.cat}</span><span class="spacer"></span><span class="badge outline">${p.town?'町全体':E.district(state,selected).name}</span></div><h3>${p.name}</h3><p class="description">${p.desc}</p><div class="policy-effect">${p.effect}</div><div class="policy-cost"><span>町負担 総額</span><strong class="amount num">${money(q.own)}</strong><span>億円</span></div><div class="policy-meta">今年度 ${money(q.ownYear)}億円 ／ 工期 ${p.years}年 ／ 実施余力 ${p.staff}<br>総事業費 ${money(q.total)}億円・補助仮定 ${p.grant*100}%<br>${p.annual?'翌年度以降の運用費 年'+money(p.annual*Math.pow(1.004,state.year+1))+'億円〜':'完成後に効果を反映。運用中の一律追加経費なし。'}</div>
+        ${chosen?`<button class="btn secondary policy-select" data-policy="${p.id}" data-target="${target}">${icon('check','sm')}計画済み・取り消す</button>`:why?`<div class="unavailable">${esc(why)}</div>`:`<button class="btn policy-select" data-policy="${p.id}" data-target="${target}">今年度の計画に追加 ＋</button>`}</article>`;
+      }).join('')}</div><p class="note" style="margin-top:15px">施工費は年0.4%で上昇する仮定。複数年事業は、着手時の総額を工期で均等配分して固定します。完成年度にも通常の老朽化は進みます。</p>`;
+  }
+  function budgetView(f){
+    const repay=state.year===30?'（翌年度参考）':'';
+    return `<div class="budget-grid"><div>
+      <section class="panel"><div class="panel-pad"><div class="between"><h3>年度の会計 ${repay}</h3><span class="badge outline">単位：億円</span></div><p class="note" style="margin-top:6px">水道を内数に含む、ゲーム用の連結会計。元金償還も支出に含めます。</p>
+      <div class="account-columns"><div><h3>収入</h3>${kv('町税',money(f.tax))}${kv('調整交付収入（簡略）',money(f.transfer))}${kv('その他の恒常収入',money(f.other))}${kv('水道料金',money(f.waterIncome))}${kv('恒常収入 合計',money(f.revenue),'total')}${kv('事業補助金',money(f.projectGrants),'soft')}${kv('通常借入 ※収益ではない',money(f.borrow),'soft')}</div>
+      <div><h3>支出</h3>${kv('基礎経費',money(f.basic))}${kv('住民サービス・高齢者支援',money(f.resident))}${kv('道路・橋 維持管理',money(f.roads))}${kv('水道 維持管理',money(f.water))}${kv('学校・公共施設 維持管理',money(f.facilities))}${kv('施策の継続運用費',money(f.running))}${kv('老朽設備の応急対応',money(f.emergency))}${kv('借入元金償還 / 利息',money(f.repayment)+' / '+money(f.interest))}${kv('経常的な支出 合計',money(f.expense),'total')}${kv('建設・導入事業費（総額）',money(f.grossProjects),'soft')}</div></div>
+      <div class="account-summary"><div class="account-stat"><p>経常的な収支</p><div class="num ${f.operating<0?'negative':'positive'}">${signedMoney(f.operating)}</div></div><div class="account-stat"><p>事業費込み・借入前</p><div class="num ${f.balance<0?'negative':''}">${signedMoney(f.balance)}</div></div><div class="account-stat"><p>年度末の基金</p><div class="num ${f.fundsAfter<0?'negative':''}">${money(f.fundsAfter)}</div></div></div>
+      ${f.fundsAfter<0?'<div class="attention red">基金不足です。計画を絞る・料金や維持水準を見直す・通常借入を検討してください。そのまま実行すると緊急つなぎ資金が発生します。</div>':''}
+      <p class="budget-foot">年度末基金 ＝ 現在の基金 ＋ 恒常収入 − 経常支出 − 総事業費 ＋ 事業補助金 ＋ 通常借入。突発イベント費は実行後に計上します。</p></div></section>
+      <section class="panel" style="margin-top:18px"><div class="panel-pad"><div class="between"><h3>水道の収支 <span class="badge outline">会計の内数</span></h3>${icon('water')}</div>${kv('料金収入',money(f.waterIncome)+' 億円')}${kv('維持管理費',money(f.water)+' 億円')}${kv('更新事業の町負担',money(f.waterProjects)+' 億円')}${kv('料金 − 維持管理 − 更新負担',signedMoney(f.waterBalance)+' 億円','total')}<p class="budget-foot">不足分は上記の町全体の資金から補います。この欄で二重に支出は加算しません。企業債・減価償却等は未実装です。</p></div></section>
+      <section class="panel" style="margin-top:18px"><div class="panel-pad"><h3>継続運用中の施策</h3><p class="note">終了すると、この年度から運用費と運用効果がなくなります。</p>${state.programs.length?state.programs.map(p=>{const key=p.policy+':'+p.target,stop=plan.stops.includes(key);return `<div class="program-row ${stop?'program-stop':''}"><div><h4>${E.district(state,p.target)?.name||'町全体'}：${E.policy(p.policy).name}</h4><p>年 ${money(E.policy(p.policy).annual*Math.pow(1.004,state.year))}億円 ／ 第${p.since}年度に開始</p></div><button class="btn small ${stop?'secondary':'danger'}" data-stop="${key}" ${state.year===30?'disabled':''}>${stop?'終了を取消':'運用を終了'}</button></div>`;}).join(''):'<div class="empty-state" style="margin-top:12px">運用中の追加施策は、まだありません。<br>交通や子育て支援を導入すると、ここに表示されます。</div>'}</div></section>
+      </div><div>
+      <section class="panel"><div class="panel-pad"><h3 style="margin-bottom:20px">今年度の方針</h3><div class="control-block"><h3>維持管理の水準</h3><div class="segmented">${[[.85,'抑制 85%'],[1,'標準 100%'],[1.15,'予防重視 115%']].map(([v,l])=>`<button class="${plan.upkeep===v?'active':''}" data-upkeep="${v}" ${state.year===30?'disabled':''}>${l}</button>`).join('')}</div><p class="note" style="margin-top:8px">道路・水道・施設の維持費に適用。抑制時は傷みの進行1.6倍、予防重視では0.55倍。更新・修繕の代わりにはなりません。</p></div>
+      <div class="control-block"><h3>水道料金の水準</h3><div class="stepper"><button class="btn" data-rate="-5" aria-label="水道料金を5ポイント下げる" ${state.year===30||plan.waterRate-5<Math.max(80,state.waterRate-5)?'disabled':''}>−</button><strong class="amount num">${plan.waterRate}<small>%</small></strong><button class="btn" data-rate="5" aria-label="水道料金を5ポイント上げる" ${state.year===30||plan.waterRate+5>Math.min(140,state.waterRate+5)?'disabled':''}>＋</button><span class="note">初期水準＝100%</span></div><p class="note">年間±5ポイントまで。100%を超える料金は住民の信頼を少しずつ下げます。</p></div>
+      <div class="control-block"><h3>通常借入</h3><div class="row"><input class="borrow-input" data-input="borrow" type="number" min="0" max="${Math.max(0,Math.min(5,65-state.debt)).toFixed(2)}" step="0.5" value="${plan.borrow}" aria-label="今年度の通常借入額、億円" ${state.year===30?'disabled':''}><span>億円</span><span class="spacer"></span><span class="note">残高見込<br><strong class="num">${money(f.debtAfter)}億円</strong></span></div><p class="note" style="margin-top:8px">通常借入は年5億円・残高65億円まで。金利1.5%、年初残高の4%を毎年償還する簡略モデル。</p></div>
+      <div class="control-block"><h3>将来に残る更新負担</h3><div class="forecast-main num">${money(E.infrastructureNeed(state))} <small>億円</small></div><p class="note">健全度65未満の設備を更新するための概算準備額。自動では支出されませんが、最終評価に反映します。</p></div></div></section>
+      <section class="panel" style="margin-top:18px"><div class="panel-pad"><div class="between"><h3>計画・工事中の事業</h3><span class="badge">実施余力 ${E.usedStaff(state,plan)}/${E.capacity(state,plan)}</span></div><div class="progress-list">${plan.projects.map(p=>{const q=E.quote(state,p.policy,p.target),def=E.policy(p.policy);return `<div class="project-row"><div class="between"><span class="badge">新規計画</span><button class="btn ghost small" data-policy="${p.policy}" data-target="${p.target}">取消</button></div><h4>${E.district(state,p.target)?.name||'町全体'}：${def.name}</h4><p>工期${q.years}年 ／ 今年の町負担 ${money(q.ownYear)}億円 ／ 余力${q.staff}</p><p>翌年度以降の残り町負担 ${money(q.own-q.ownYear)}億円</p></div>`;}).join('')}${state.projects.map(p=>`<div class="project-row"><span class="badge gold">工事中・残り${p.remaining}年</span><h4 style="margin-top:7px">${E.district(state,p.target)?.name||'町全体'}：${E.policy(p.policy).name}</h4><p>今年の町負担 ${money(p.installment*(1-p.grantRate))}億円 ／ 余力${p.staff}</p><p>本年度を含む残り町負担 ${money(p.installment*(1-p.grantRate)*p.remaining)}億円</p><div class="project-progress">${Array.from({length:p.years},(_,i)=>`<span class="${i<p.years-p.remaining?'done':''}"></span>`).join('')}</div></div>`).join('')}${!plan.projects.length&&!state.projects.length?'<div class="empty-state">計画・工事中の事業はありません。<br>「施策を選ぶ」から計画に追加できます。</div>':''}</div><p class="budget-foot">着手済み事業は試作版では中止できません。実施余力は完成年度まで毎年使います。</p></div></section>
+      </div></div>`;
+  }
+  function historyView(){
+    const h=state.history[state.year],b=reference[state.year];
+    return `<div class="chart-panels"><section class="panel"><div class="panel-pad"><div class="between"><h3>人口の推移</h3><span class="badge">現状維持比 ${signed(h.population-b.population)}人</span></div><p class="note" style="margin:8px 0">人口の増減を、同じ初期条件の町と比較します。</p>${popChart(220)}<div class="chart-key"><span><i></i>あなたの町</span><span><i class="reference"></i>現状維持・新規施策なし</span></div></div></section><section class="panel"><div class="panel-pad"><h3>基金と借入の推移</h3><p class="note" style="margin:8px 0">単位：億円。借入で増えた手元資金は、収益ではありません。</p>${chart([{data:state.history.map(h=>({year:h.year,value:h.funds})),color:'#3e6554'},{data:state.history.map(h=>({year:h.year,value:h.debt})),color:'#a57538'}],{kind:'money',height:220})}<div class="chart-key"><span><i></i>基金残高</span><span><i class="gold"></i>借入残高</span></div></div></section></div>
+      <section class="panel"><div class="panel-head"><div><h3>年度ごとの記録</h3><p>行をクリックすると、その年度の結果と施策を確認できます。</p></div><button class="btn small" data-action="csv">${icon('download','sm')}CSV</button></div><div class="table-wrap"><table><thead><tr><th>年度</th><th>人口（人）</th><th>自然増減</th><th>社会増減</th><th>現状維持比</th><th>基金（億）</th><th>借入（億）</th><th>健全度</th><th>暮らし</th></tr></thead><tbody>${[...state.history].reverse().map(h=>`<tr class="${h.year?'clickable':''}" ${h.year?`data-report="${h.year}" tabindex="0" role="button" aria-label="第${h.year}年度の結果を見る"`:''}><td>${h.year?'第'+h.year+'年度':'開始時'}</td><td>${num(h.population)}</td><td>${h.year?signed(h.delta.births-h.delta.deaths):'—'}</td><td>${h.year?signed(h.delta.incoming-h.delta.outgoing):'—'}</td><td class="${h.population-reference[h.year].population>=0?'positive':'negative'}">${signed(h.population-reference[h.year].population)}</td><td>${money(h.funds)}</td><td>${money(h.debt)}</td><td>${Math.round(h.safety)}</td><td>${Math.round(h.life)}</td></tr>`).join('')}</tbody></table></div></section>
+      <div class="baseline-note">比較対象は「標準維持・料金100%・新規事業なし」。イベントONでは、同じ年に同じ種類の出来事が同じ地区で起きます。被害額は設備の状態で変わります。負担と施策効果はすべて本作の仮定です。</div>`;
+  }
+  function openModal(html,{className='',close=true}={}){
+    modalReturnFocus=document.activeElement;
+    document.getElementById('modal-root').innerHTML=`<div class="modal-overlay"><section class="modal ${className}" role="dialog" aria-modal="true" aria-label="${className==='welcome'?'ゲームのはじめ方':'ゲームの案内と結果'}">${close?'<button class="modal-close" data-action="close-modal" aria-label="閉じる">×</button>':''}${html}</section></div>`;
+    document.body.style.overflow='hidden';
+    const focus=document.querySelector('.modal [autofocus], .modal .primary, .modal button');if(focus)focus.focus();
+  }
+  function closeModal(){document.getElementById('modal-root').innerHTML='';document.body.style.overflow='';if(modalReturnFocus?.isConnected)modalReturnFocus.focus();}
+  function welcome(){
+    openModal(`<div class="welcome-hero"><div class="distribution-ribbon">TEST PLAY ／ v${E.VERSION} ／ HTML 1ファイル版</div><div class="eyebrow">山あい町 ／ 30年の運営を引き継ぐ</div><h2>増やすだけが、<br>答えじゃない。</h2><p>人口1万人。老い始めた水道と道路。限られた予算。<br>何を残し、何を変え、どこに投資するか。<br>次の世代が暮らせる町を、あなたの判断でつないでください。</p></div><div class="modal-body"><div class="welcome-steps"><div class="welcome-step"><div class="number num">01</div><h3>町を知る</h3><p>8地区の人口・暮らし・設備の傷みを確かめる。</p></div><div class="welcome-step"><div class="number num">02</div><h3>今年を決める</h3><p>施策と予算を組み合わせる。工期中の負担も忘れずに。</p></div><div class="welcome-step"><div class="number num">03</div><h3>結果から学ぶ</h3><p>1年を進め、人口と財政の変化を確かめる。</p></div></div><div class="tester-callout"><h3>試遊していただく方へ</h3><ul><li>このHTMLファイル1個だけで動きます。インストールやログインは不要です。</li><li>まずは「選択に悩めるか」「結果の理由に納得できるか」「別の方針でもう一度遊びたいか」を見てください。</li><li>右上の「試遊メモ」から、結果情報つきの感想テンプレートをテキストで書き出せます。</li><li>自動保存はブラウザ環境により残らないことがあります。長く遊ぶ場合は「書き出し」も使ってください。</li></ul></div><label class="check-row"><input type="checkbox" id="welcome-events" ${state.events?'checked':''}>豪雪・大雨・事業所の変化など、突発イベントを有効にする</label><p class="note" style="margin-top:10px">初回はOFFがおすすめ。政策の違いを比べやすくなります。途中からは変更できません。</p><div class="modal-footer"><span class="note">架空の数値による試作版。<br>実際の町の将来予測ではありません。</span><button class="btn primary" data-action="start">町の運営をはじめる ${icon('arrow','sm')}</button></div></div>`,{className:'welcome',close:false});
+  }
+  function reportHTML(h){
+    const prev=state.history[h.year-1],d=h.delta,df=h.population-prev.population;
+    const logs=h.logs.filter(l=>l.type!=='start').concat(h.logs.filter(l=>l.type==='start'));
+    return `<div class="modal-body"><div class="eyebrow">年度報告 ／ ${String(h.year).padStart(2,'0')}</div><h2>第${h.year}年度が終わりました。</h2><p class="intro">${df<0?'人口減少は続いています。自然減と社会増減を分けて、次の手を考えましょう。':df>0?'人口は前年より増加しました。将来の支出と生活サービスも確かめましょう。':'人口は前年と同数でした。収支と設備を見ながら、持続できるか確認しましょう。'}</p>
+      <div class="report-metrics"><div class="report-metric"><p>町の人口</p><div class="num">${num(h.population)}</div><small>前年 ${signed(df)}人</small></div><div class="report-metric"><p>年度末の基金</p><div class="num">${money(h.funds)}</div><small>億円 ／ 前年 ${signedMoney(h.funds-prev.funds)}</small></div><div class="report-metric"><p>インフラ健全度</p><div class="num">${Math.round(h.safety)}</div><small>/100 ／ 前年 ${signed(Math.round(h.safety-prev.safety))}</small></div></div>
+      <div class="population-flow"><div>出生<strong class="num positive">+${num(d.births)}</strong></div><div>死亡<strong class="num negative">−${num(d.deaths)}</strong></div><div>転入<strong class="num positive">+${num(d.incoming)}</strong></div><div>転出<strong class="num negative">−${num(d.outgoing)}</strong></div><div>町内転居<strong class="num">${num(d.internal)}</strong></div></div><p class="note">前年人口 ${num(prev.population)} ＋ 出生 − 死亡 ＋ 転入 − 転出 ＝ ${num(h.population)}人。町内転居は総人口を変えません。</p>
+      <div class="report-logs">${logs.length?logs.map(l=>`<div class="report-log ${['complete','warning','event','danger'].includes(l.type)?l.type:''}">${esc(l.text)}</div>`).join(''):'<div class="report-log">新規事業・突発イベントはありませんでした。</div>'}</div>
+      <div class="year-report-label">実際の年度収支（借入前） ${signedMoney(h.finance.actualBalance)}億円 ／ 通常借入 ${money(h.finance.borrow)}億円 ／ 緊急借入 ${money(h.finance.emergencyBorrow||0)}億円</div>
+      <div class="modal-footer"><span class="note">現状維持の町より ${signed(h.population-reference[h.year].population)}人</span><button class="btn primary" data-action="${h.year===30&&state.year===30?'ending':'close-modal'}">${h.year===30&&state.year===30?'30年間の成績へ':h.year===state.year?'次の年度を計画する':'記録に戻る'} ${icon('arrow','sm')}</button></div></div>`;
+  }
+  function ending(){
+    const sc=E.score(state,reference),last=state.history[state.year],prev=state.history[Math.max(0,state.year-1)],change=last.population-prev.population;
+    openModal(`<div class="score-hero"><div class="eyebrow" style="color:#c8d6c2">30年後、町に残ったもの。</div><div class="score-number num">${sc.total}<small>/ 100</small></div><h2>${sc.label}</h2><p>人口だけでなく、財政・設備・暮らし・世代構成を評価しています。</p></div><div class="modal-body"><div class="report-metrics" style="margin-top:0"><div class="report-metric"><p>30年後の人口</p><div class="num">${num(E.townPop(state))}</div><small>現状維持比 ${signed(sc.diff)}人</small></div><div class="report-metric"><p>基金 / 借入</p><div class="num" style="font-size:19px">${money(state.funds)} / ${money(state.debt)}</div><small>億円 ／ 緊急借入 ${state.crisisYears}年度</small></div><div class="report-metric"><p>最終年度の人口増減</p><div class="num">${signed(change)}</div><small>人 ／ ${change>=0?'減少から転換':'減少が継続'}</small></div></div>
+      <div class="score-bars">${bar('人口維持 30%',sc.people)}${bar('財政持続性 25%',sc.fiscal)}${bar('設備安全性 20%',sc.infra)}${bar('暮らし 15%',sc.services)}${bar('世代構成 10%',sc.generations)}</div><div class="attention">${sc.operating<0?'終盤の経常収支は赤字です。人口対策だけでなく、維持対象と継続経費の見直しが次の課題です。':sc.infra<55?'経常収支は持ちこたえていますが、設備の傷みが残っています。更新準備額と地区ごとの安全性を確認してください。':change<0?'暮らしと財政の基盤を確かめながら、転出の抑制と若い世帯の受入れを継続する余地があります。':'人口の増加と暮らしの維持を両立する兆しがあります。一年の好結果だけでなく、次の更新負担にも目を向けましょう。'}</div><p class="note" style="margin-top:12px">評価式と政策効果は試作用です。特定の現実の政策の優劣を証明するものではありません。</p><div class="modal-footer"><button class="btn" data-action="ending-records">30年の記録を見る</button><button class="btn primary" data-action="export">セーブを書き出す ${icon('download','sm')}</button></div></div>`);
+  }
+  function help(){
+    openModal(`<div class="modal-body"><div class="eyebrow">遊び方・モデルについて</div><h2>町の暮らしを、つなぐために。</h2><div class="help-sections"><section><h3>毎年の操作</h3><p>地図で地区を選ぶ →「施策を選ぶ」で計画に追加 →「予算と事業」で基金・継続費・実施余力を確認 →「年度を実行」。30年間の記録と成績まで遊べます。</p></section><section><h3>お金と工期</h3><p>金額は億円表示。複数年事業は着手時の総額を工期で均等配分し、毎年払います。補助金は事業の一部だけに使い、町負担を減らします。完成は年度末。交通・子育て等の運用費は、完成の翌年度から毎年発生します。工事中の取消は未実装です。</p></section><section><h3>人口が変わる理由</h3><p>0〜14歳・15〜39歳・40〜64歳・65〜79歳・80歳以上の5区分を1年ずつ進め、出生・死亡・転入・転出を計算。転入候補は仕事・交通・子育て・移住支援で変わり、実際の転入は住める空き家の数が上限です。町内転居では総人口は変わりません。</p></section><section><h3>縮小にも準備が必要</h3><p>道路・施設の集約は、生活交通が58以上で実施可能。対象人口や集約済み状態でも制限されます。事業期間と初期費用を負担してから、維持費が下がります。水道の転換は代替給水を確保する前提のモデルです。</p></section><section><h3>老朽化・維持水準</h3><p>設備は毎年傷みます。道路の通常劣化は年1.65〜2.00、水道は1.90〜2.20、施設は1.55ポイント。維持費85%なら劣化1.6倍、115%なら0.55倍。健全度の低下は応急対応費と暮らしに影響します。健全度は人口加重平均なので、小集落の悪化を地図でも確認してください。</p></section><section><h3>財政の簡略モデル</h3><p>人口だけでなく働く世代と仕事の充実度で税収が変化。調整交付収入は人口の減少を一部緩和するゲーム独自の計算で、実際の地方交付税算定ではありません。「経常的な収支」も法定の財政指標とは異なります。施工・維持単価は年0.4%上昇、調整交付収入には年0.1%の逓減を仮定。借入金利1.5%、年初残高の4%を償還します。</p><p style="margin-top:8px">基金不足時は、途中で詰まらないよう「緊急つなぎ資金」が自動発生します。現実に無制限の借入ができる意味ではありません。最終評価に不利になります。</p></section><section><h3>比べ方と評価</h3><p>破線は、同じ町・同じイベントで新規施策なしの現状維持ケースです。人口30%・財政25%・設備20%・暮らし15%・若い世代の比率10%で採点。借入や更新負担を残して人口だけ増やすと評価が伸びにくくなります。</p></section><section><h3>試遊メモ</h3><p>右上の「試遊メモ」から、現在の年度・人口・基金・借入などを添えた感想テンプレートをTXTで書き出せます。試遊者はそのファイルに感想を書き足して返すだけで構いません。</p></section><section><h3>保存と動作環境</h3><p>自動保存は同じブラウザでの再開用です。ブラウザ変更・履歴削除・ファイルの移動で引き継げない場合があります。「書き出し」のJSONを保管すれば「読込」で復元できます。ログイン・外部通信・生成AIのAPIは使いません。PC優先の試作で、スマホ向けの幅調整も行っています。</p></section><section><h3>まだ再現していないこと</h3><p>道路・水道の実際の接続網、施設ごとの利用定員、合意形成の詳細、町外の住宅事情、災害避難計画、自治体会計や補助制度の実務。地図の線は模式図で、通行・給水を数理的に保証するネットワーク計算はしていません。</p></section></div><div class="modal-footer"><span class="note">モデル v${E.VERSION} ／ すべて架空の数値</span><button class="btn primary" data-action="close-modal">町に戻る</button></div></div>`);
+  }
+  function feedbackText(){
+    const h=state.history[state.year], ref=reference[state.year];
+    const popDiff=h&&ref?h.population-ref.population:0;
+    const sc=state.year===30?E.score(state,reference):null;
+    return [
+      'まちを、つなぐ。｜試遊メモ',
+      `ゲーム v${E.VERSION} / ${BUILD}`,
+      `経過年度: ${state.year} / 30`,
+      `突発イベント: ${state.events?'ON':'OFF'}`,
+      `現在人口: ${num(E.townPop(state))}人（現状維持比 ${signed(popDiff)}人）`,
+      `基金: ${money(state.funds)}億円 / 借入: ${money(state.debt)}億円`,
+      sc?`30年評価: ${sc.total}/100（${sc.label}）`:'30年評価: 未到達',
+      '',
+      '【感想】',
+      '1. 一番判断に迷った場面・施策は？',
+      '',
+      '2. 意味や操作が分かりにくかったところは？',
+      '',
+      '3. 強すぎる／弱すぎると感じた施策は？',
+      '',
+      '4. 人口・財政・インフラが動いた理由に納得できた？',
+      '',
+      '5. 別の方針でもう一度遊びたいと思った？　その理由は？',
+      '',
+      '6. バグ、表示崩れ、動かなかった操作は？',
+      '',
+      '7. その他、追加してほしい要素',
+      '',
+      '【動作環境】',
+      navigator.userAgent
+    ].join('\r\n');
+  }
+  function feedback(){
+    openModal(`<div class="modal-body"><div class="eyebrow">試遊フィードバック</div><h2>遊んだ感触を、次の版につなぐ。</h2><p class="intro">細かな感想より、まずは「判断に迷えたか」「結果に納得できたか」「もう一度違うやり方を試したいか」が知りたいです。</p><div class="feedback-grid"><div class="feedback-card"><strong>判断</strong><span>残す・縮める・投資する、の選択で本当に迷ったか。</span></div><div class="feedback-card"><strong>納得感</strong><span>人口や財政が変わった理由を画面から理解できたか。</span></div><div class="feedback-card"><strong>バランス</strong><span>万能に見える施策や、選ぶ意味が薄い施策がなかったか。</span></div><div class="feedback-card"><strong>再挑戦</strong><span>次は別の運営方針でやってみたいと思えたか。</span></div></div><div class="baseline-note">現在の年度・人口・基金・借入・イベント設定と、感想の質問をまとめたTXTファイルを書き出せます。記入後、そのファイルを返してもらえばOKです。</div><div class="modal-footer"><span class="note">${BUILD}<br>現在 ${state.year} / 30年度</span><button class="btn" data-action="close-modal">戻る</button><button class="btn primary" data-action="feedback-export">試遊メモを書き出す ${icon('download','sm')}</button></div></div>`);
+  }
+  function confirmReset(){openModal(`<div class="modal-body"><div class="eyebrow">新しくはじめる</div><h2>現在の町を終了しますか？</h2><p class="intro">自動保存は新しい町で上書きされます。今の町を残す場合は、先にセーブデータを書き出してください。</p><div class="modal-footer"><button class="btn" data-action="export">先に書き出す</button><button class="btn danger" data-action="confirm-reset">最初の町に戻す</button></div></div>`);}
+  function advance(confirmed=false){
+    const f=E.finance(state,plan);
+    if(!confirmed&&f.fundsAfter<0){openModal(`<div class="modal-body"><div class="eyebrow">基金不足の確認</div><h2>基金が${money(-f.fundsAfter)}億円、不足する見込みです。</h2><p class="intro">このまま実行すると、緊急つなぎ資金を自動で借り入れます。将来の返済負担と成績への影響があります。</p><div class="modal-footer"><button class="btn" data-action="review-budget">予算を見直す</button><button class="btn danger" data-action="force-advance">緊急借入を承知して実行</button></div></div>`);return;}
+    try{const result=E.step(state,plan);state=result.state;plan=E.defaultPlan(state);save();render();openModal(reportHTML(result.report));}catch(err){toast('年度を進められません：'+err.message);console.error(err);}
+  }
+  function csv(){
+    const rows=[['年度','人口_人','出生_人','死亡_人','転入_人','転出_人','町内転居_人','基金_億円','借入_億円','経常収支_億円','事業費町負担_億円','インフラ健全度','暮らし利便性','現状維持人口_人']];
+    for(const h of state.history)rows.push([h.year,h.population,h.delta.births,h.delta.deaths,h.delta.incoming,h.delta.outgoing,h.delta.internal,h.funds.toFixed(4),h.debt.toFixed(4),h.finance.operating.toFixed(4),(h.finance.grossProjects-h.finance.projectGrants).toFixed(4),h.safety.toFixed(2),h.life.toFixed(2),reference[h.year].population]);
+    download(`machi-record-year${state.year}.csv`,'\uFEFF'+rows.map(r=>r.join(',')).join('\r\n'),'text/csv;charset=utf-8');
+    toast('年度記録をCSVで書き出しました。');
+  }
+  document.addEventListener('click',event=>{
+    const el=event.target.closest('button,[data-select],[data-report]');if(!el||el.disabled)return;
+    if(el.dataset.tab){tab=el.dataset.tab;render();window.scrollTo(0,0);return;}
+    if(el.dataset.select){selected=el.dataset.select;save();render();return;}
+    if(el.dataset.layer){layer=el.dataset.layer;render();return;}
+    if(el.dataset.filter){filter=el.dataset.filter;render();return;}
+    if(el.dataset.report){const h=state.history[Number(el.dataset.report)];if(h?.year)openModal(reportHTML(h));return;}
+    if(el.dataset.policy){
+      const pid=el.dataset.policy,target=el.dataset.target,at=plan.projects.findIndex(x=>x.policy===pid&&x.target===target);
+      if(at>=0){plan.projects.splice(at,1);toast('今年度の計画から外しました。');}
+      else{const why=E.eligibility(state,pid,target,plan);if(why){toast(why);return;}plan.projects.push({policy:pid,target});toast((E.district(state,target)?.name||'町全体')+'：'+E.policy(pid).name+'を計画に追加しました。');}
+      save();render();return;
+    }
+    if(el.dataset.upkeep){plan.upkeep=Number(el.dataset.upkeep);save();render();return;}
+    if(el.dataset.rate){plan.waterRate=E.clamp(plan.waterRate+Number(el.dataset.rate),Math.max(80,state.waterRate-5),Math.min(140,state.waterRate+5));save();render();return;}
+    if(el.dataset.stop){
+      const key=el.dataset.stop,i=plan.stops.indexOf(key);
+      if(i>=0)plan.stops.splice(i,1);else{const test=E.clone(plan);test.stops.push(key);if(E.usedStaff(state,test)>E.capacity(state,test)){toast('共同管理を終了すると実施余力が不足します。新規計画を減らすか工事完了を待ってください。');return;}plan.stops.push(key);}
+      save();render();return;
+    }
+    switch(el.dataset.action){
+      case 'save':save(true);break;
+      case 'export':download(`machi-save-year${state.year}.json`,JSON.stringify(payload(),null,2),'application/json');toast('セーブデータを書き出しました。');break;
+      case 'import':document.getElementById('import-file').click();break;
+      case 'help':help();break;
+      case 'feedback':feedback();break;
+      case 'feedback-export':download(`machi-feedback-year${state.year}.txt`,'\uFEFF'+feedbackText(),'text/plain;charset=utf-8');toast('試遊メモを書き出しました。記入して返してもらえばOKです。');break;
+      case 'reset':confirmReset();break;
+      case 'confirm-reset':closeModal();state=E.createState();plan=E.defaultPlan(state);selected='center';tab='overview';filter='すべて';reference=E.baseline();save();render();welcome();break;
+      case 'start':{const checked=document.getElementById('welcome-events')?.checked;state.events=!!checked;reference=E.baseline({events:state.events,seed:state.seed});save();closeModal();render();break;}
+      case 'close-modal':closeModal();break;
+      case 'district-policies':tab='policies';filter='すべて';render();window.scrollTo(0,0);break;
+      case 'advance':advance();break;
+      case 'force-advance':closeModal();advance(true);break;
+      case 'review-budget':closeModal();tab='budget';render();window.scrollTo(0,0);break;
+      case 'ending':ending();break;
+      case 'ending-records':closeModal();tab='history';render();window.scrollTo(0,0);break;
+      case 'csv':csv();break;
+    }
+  });
+  document.addEventListener('change',event=>{
+    const el=event.target;
+    if(el.dataset.input==='district'){selected=el.value;save();render();}
+    if(el.dataset.input==='borrow'){
+      const n=Number(el.value);if(!Number.isFinite(n)){toast('借入額を数値で入力してください。');render();return;}
+      plan.borrow=Math.round(E.clamp(n,0,Math.max(0,Math.min(5,65-state.debt)))*100)/100;save();render();
+    }
+  });
+  document.addEventListener('keydown',event=>{
+    const modal=document.querySelector('.modal');
+    if(modal){
+      if(event.key==='Escape'&&!modal.classList.contains('welcome')){closeModal();return;}
+      if(event.key==='Tab'){const focusables=[...modal.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex="0"]')];if(!focusables.length)return;const first=focusables[0],last=focusables.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}}
+    }else if(['Enter',' '].includes(event.key)&&(event.target.dataset.select||event.target.dataset.report)){event.preventDefault();event.target.click();}
+  });
+  document.getElementById('import-file').addEventListener('change',async event=>{
+    const file=event.target.files[0];event.target.value='';if(!file)return;
+    if(file.size>2*1024*1024){toast('ファイルが大きすぎます。2MB以下のセーブデータを選んでください。');return;}
+    try{
+      const raw=JSON.parse(await file.text());E.validateState(raw.state);
+      // Parse and validate before showing a destructive-load confirmation.
+      window.__pendingMachiImport=raw;
+      openModal(`<div class="modal-body"><div class="eyebrow">セーブデータの読込</div><h2>${raw.state.year}年経過した町を読み込みます。</h2><p class="intro">現在の自動保存は読み込む町で置き換わります。現在の町を残す場合は先に書き出してください。</p><div class="modal-footer"><button class="btn" data-action="export">現在の町を書き出す</button><button class="btn primary" id="confirm-import">この町を読み込む</button></div></div>`);
+      document.getElementById('confirm-import').addEventListener('click',()=>{try{loadPayload(window.__pendingMachiImport);delete window.__pendingMachiImport;closeModal();tab='overview';save();render();toast('セーブデータを読み込みました。');}catch(err){toast('読込できません：'+err.message);}});
+    }catch(err){toast('読込できません：'+err.message);}
+  });
+  // Exposes read-only copies for reproducible model/UI testing and future development.
+  window.MachiApp={getState:()=>E.clone(state),getPlan:()=>E.clone(plan),getReference:()=>E.clone(reference),exportData:()=>JSON.stringify(payload()),version:E.VERSION,build:BUILD,feedbackText};
+  render();
+  if(!loaded)welcome();
+})();
+
+</script>
+</body>
+</html>
